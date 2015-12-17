@@ -1,0 +1,47 @@
+ 
+<ion-navbar *navbar>
+  <button menuToggle>
+    <icon menu></icon>
+  </button>
+  <ion-title>New Session</ion-title>
+</ion-navbar>
+
+
+    <ion-content class="padding TakeRegister">    
+          <h3>New Session</h3>
+<div *ng-if="selectedRegister" padding>
+  <ion-card>
+  <ion-card-header>
+      {{selectedRegister.registerNo}}
+  </ion-card-header>
+  <ion-card-content>
+    {{selectedRegister.title}}
+    <p>Date: {{selectedSchedule.date}}</p>
+    <p>Start Time: {{selectedSchedule.startTime}}</p>
+    <p>End Time: {{selectedSchedule.endTime}}</p>
+  </ion-card-content>
+</ion-card>
+  </div>
+  <div *ng-if="students==false" padding>
+    <h2>No students</h2>
+    </div>
+  <ion-list>
+  <ion-item *ng-for="#stu of students" >
+    <ion-thumbnail item-left>
+     <img [src]="stu.thumbnail">
+    </ion-thumbnail>
+    <h2>{{stu.firstName}} {{stu.surname}}</h2>
+    <p>Last Attended: {{stu.lastAttended ? stu.lastAttended : 'N/A'}}</p>
+      <ion-list radio-group>
+      <ion-radio value="/">/ - Present</ion-radio>
+      <ion-radio value="O">O - Absent</ion-radio>
+       <ion-radio *ng-if="stu.completionStatusID=='4'" checked="true" value="T">T - Transferred</ion-radio>
+      </ion-list>
+
+
+    
+  </ion-item>
+
+</ion-list>
+<button full (click)="save()">Save</button>
+</ion-content>

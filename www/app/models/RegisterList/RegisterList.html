@@ -1,0 +1,16 @@
+
+  <ion-list>
+<button class="item" ion-item *ngFor="#reg of registers" (click)="selectRegister($event,reg)">
+     <ion-card>
+       <ion-card-header>
+         {{reg.registerNo}}
+         </ion-card-header>
+         <ion-card-content>
+           {{reg.title}}
+           </ion-card-content>
+      </ion-card>
+  </button>
+</ion-list>
+ <div *ngIf="selectedRegister" padding>
+    You clicked <b>{{selectedRegister.title}}</b>
+  </div>
