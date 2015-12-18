@@ -12,36 +12,48 @@
 <div *ng-if="selectedRegister" padding>
   <ion-card>
   <ion-card-header>
-      {{selectedRegister.registerNo}}
+      <h2>{{selectedRegister.registerNo}}</h2>
   </ion-card-header>
   <ion-card-content>
-    {{selectedRegister.title}}
-    <p>Date: {{selectedSchedule.date}}</p>
-    <p>Start Time: {{selectedSchedule.startTime}}</p>
-    <p>End Time: {{selectedSchedule.endTime}}</p>
+    <h4 >{{selectedRegister.title}}</h4>
+    <br/>
+    <label for="sessionDate">Date:</label>
+    <input name="sessionDate" [(ng-model)]="registerSession.date" [value]="selectedSchedule.date">
+    <label for="sessionStart">Start Time:</label>
+    <input name="sessionStart"  [(ng-model)]="registerSession.startTime" [value]="selectedSchedule.startTime">
+    <label for="sessionEnd">End Time:</label>
+    <input name="sessionEnd"  [(ng-model)]="registerSession.endTime" [value]="selectedSchedule.endTime">
+    
   </ion-card-content>
 </ion-card>
+
+
+
+
   </div>
-  <div *ng-if="students==false" padding>
+  
+ <div *ng-if="students==false" padding>
     <h2>No students</h2>
-    </div>
-  <ion-list>
-  <ion-item *ng-for="#stu of students" >
-    <ion-thumbnail item-left>
-     <img [src]="stu.thumbnail">
-    </ion-thumbnail>
-    <h2>{{stu.firstName}} {{stu.surname}}</h2>
-    <p>Last Attended: {{stu.lastAttended ? stu.lastAttended : 'N/A'}}</p>
-      <ion-list radio-group>
-      <ion-radio value="/">/ - Present</ion-radio>
-      <ion-radio value="O">O - Absent</ion-radio>
-       <ion-radio *ng-if="stu.completionStatusID=='4'" checked="true" value="T">T - Transferred</ion-radio>
-      </ion-list>
-
-
+ </div>
     
+    
+  <ion-list>
+  <ion-item *ng-for="#m of registerMarks" >
+    {{m | json}}
+    <br/>
+    <ion-thumbnail item-left>
+     <img [src]="m.student.thumbnail">
+    </ion-thumbnail>
+    <h2>{{m.student.firstName}} {{m.student.surname}}</h2>
+    <h4>{{m.registerStudentID}}</h4>
+    <p>Last Attended: {{m.student.lastAttended ? m.student.lastAttended : 'N/A'}}</p>
+      <ion-list radio-group  [(ng-model)]="m.markTypeID">
+      <ion-radio *ng-for="#mark of markTypes"  value="{{mark.markTypeID}}">{{mark.mark}} - {{mark.description}}</ion-radio>   
+      </ion-list>
+     
   </ion-item>
 
 </ion-list>
 <button full (click)="save()">Save</button>
+
 </ion-content>

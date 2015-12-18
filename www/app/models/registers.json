@@ -6,6 +6,7 @@
     "nextScheduleID": 123,
     "students": [
       {
+        "registerStudentID": 9999,
         "refNo": "B387264",
         "surname": "Armitage",
         "firstName": "Casey",
@@ -15,6 +16,7 @@
         "lastAttended": "01/01/2015"
       },
       {
+        "registerStudentID": 9998,
         "refNo": "B410459",
         "surname": "Babar",
         "firstName": "Emily",
@@ -24,6 +26,7 @@
         "lastAttended": "08/01/2015"
       },
        {
+         "registerStudentID": 9997,
         "refNo": "B409615",
         "surname": "Ali",
         "firstName": "Lucy",
@@ -33,6 +36,7 @@
         "lastAttended": "08/01/2015"
       },
        {
+         "registerStudentID": 9996,
         "refNo": "A999111",
         "surname": "Smith",
         "firstName": "John",

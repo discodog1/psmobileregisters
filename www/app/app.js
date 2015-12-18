@@ -1,7 +1,6 @@
 import {App, IonicApp, Platform} from 'ionic/ionic';
 
 import {HomePage} from './pages/home/home';
-import {MyRegistersPage} from './pages/my-registers/my-registers';
 import {LogOutPage} from './pages/logout/logout';
 import {SyncPage} from './pages/sync/sync';
 import {HelpPage} from './pages/help/help';
@@ -25,7 +24,6 @@ class MyApp {
         this.pages = [
 
           { title: 'Home', component: HomePage, icon: 'ion-ios-home'},
-          { title: 'My Registers', component: MyRegistersPage, icon: 'ion-ios-list'},
           { title: 'Sync', component:SyncPage, icon: 'ion-android-sync'},
           { title: 'Preferences', component: PreferencesPage, icon: 'ion-ios-gear'},
           { title: 'Help', component: HelpPage, icon: 'ion-help-buoy'},
