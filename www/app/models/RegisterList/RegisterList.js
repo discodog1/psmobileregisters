@@ -5,11 +5,9 @@ import {TakeRegister} from '../TakeRegister/TakeRegister'
 import {RegisterService} from '../../services/RegisterService'
 import {Register} from '../objects'
 
-@Component({
+@Page({
    selector: 'register-list', 
-   templateUrl:'app/models/RegisterList/RegisterList.html',
-   providers: [RegisterService],
-   bindings: [RegisterService]
+   templateUrl:'app/models/RegisterList/RegisterList.html'
    })
    
 export class RegisterList {
@@ -27,7 +25,7 @@ export class RegisterList {
   };
   
   //"module variables"
-  registers: Array<Register>;
+ 
   selectedRegister:Register;
 
   
@@ -37,7 +35,7 @@ export class RegisterList {
     //get single register object to pass to next page - MOVE THIS OUT OF HERE
     var filtered = jLinq.from(this.registers)
     .starts('registerID',register.registerID)
-    .select()
+    .first()
     
     //navigate
     this.nav.push(TakeRegister,{data:filtered});

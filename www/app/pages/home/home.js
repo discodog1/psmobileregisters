@@ -11,9 +11,9 @@ export class HomePage {
  
  };
  
+ 
  navigateToMyRegisters(event) {
-    let nav = this.app.getComponent('nav');
-    nav.setRoot(RegisterList);
+    this.nav.push(RegisterList);
  }
  
 }

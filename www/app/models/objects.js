@@ -1,76 +1,95 @@
-import {Component} from 'angular2/core';
+import {Component} from 'angular2/core'
 
 @Component({
   
 })
 export class Register{
-   constructor(
-  registerID: number,
-  registerNo: string,
-  title: string,
-  nextScheduleID: Number
-  //students: RegisterStudent[]
-  //schedule: RegisterSchedule[]
-  
- ){
-   this.registerID = registerID,
-   this.registerNo = registerNo;
-   this.title = title;
-   this.nextScheduleID = nextScheduleID;
-   //this.students=students;
-   //this.schedule = schedule;
+ constructor(
+  public registerID: number,
+  public registerNo: string,
+  public title: string,
+  public nextScheduleID: number,
+  public students?: RegisterStudent[],
+  public schedule?: RegisterSchedule[]
+ )
+ {
+   
  }
-
-  //students: RegisterStudent[];
-  //schedule: RegisterSchedule[]
 }
 
 export class RegisterStudent {
-  constructor(
-  refNo: string,
-  surname: string,
-  firstName: string,
-  enrolmentID: number,
-  thumbnail: string,
-  completionStatusID: string,
-  lastAttended: string
-  ){
-    this.refNo = refNo;
-    this.surname = surname;
-    this.firstName=firstName;
-    this.enrolmentID=enrolmentID;
-    this.thumbnail=thumbnail;
-    this.completionStatusID=completionStatusID;
-    this.lastAttended=lastAttended;
-  }
+ constructor(
+  public registerStudentID: number,
+  public refNo: string,
+  public surname: string,
+  public firstName: string,
+  public enrolmentID: number,
+  public thumbnail: string,
+  public completionStatusID: string,
+  public lastAttended: string
+ )
+ {
+   
+ }
 }
 
 export class RegisterSchedule {
   constructor(
-  registerScheduleID: number,
-  date: string,
-  startTime: string,
-  endTime: string,
-  lecturers: Staff[],
-  rooms: Room[]
-  ){
-    this.registerScheduleID = registerScheduleID;
-    this.date = date;
-    this.startTime= startTime;
-    this.endTime = endTime;
-    this.lecturers = lecturers;
-    this.rooms = rooms;
-  }
+  public registerScheduleID: number,
+  public date: string,
+  public startTime: string,
+  public endTime: string,
+  public lecturers: Staff[],
+  public rooms: Room[]
+  ){}
 }
 
 export class Staff {
-  staffID: number;
-  staffRefNo: string;
-  staffName: string;
+   constructor(
+  public staffID: number,
+  public staffRefNo: string,
+  public staffName: string
+   ){}
 }
 
 export class Room {
-  roomID: number;
-  roomNo: string;
-  description: string;
+   constructor(
+  public roomID: number,
+  public roomNo: string,
+  public description: string
+   ){}
+}
+
+export class RegisterSession {
+ constructor(
+  public registerSessionID: number,
+  public registerID: number,
+  public sessionNo: number,
+  public date: string,
+  public startTime: string,
+  public endTime: string,
+  public noOfStudentsAttended: number
+ ){}
+  
+  
+  }
+
+export class RegisterMark {
+   constructor(
+    public registerMarkID: number,
+    public registerSessionID: number,
+    public registerStudentID: number,
+    public markTypeID: number,
+    public student: RegisterStudent
+   ){}
+  
+}
+
+export class MarkType {
+   constructor(
+    public markTypeID: number,
+    public mark: string,
+    public description: string
+   ){}
+  
 }

@@ -1,0 +1,32 @@
+[
+	{
+		"markTypeID": 1,
+		"mark": "/",
+		"description": "Present"
+	},
+	{
+		"markTypeID": 2,
+		"mark": "O",
+		"description": "Absent"
+	},
+	{
+		"markTypeID": 3,
+		"mark": "T",
+		"description": "Transferred"
+	},
+	{
+		"markTypeID": 4,
+		"mark": "W",
+		"description": "Withdrawn"
+	},
+	{
+		"markTypeID": 5,
+		"mark": "C",
+		"description": "Completed"
+	},
+	{
+		"markTypeID": 6,
+		"mark": "L",
+		"description": "Late"
+	}
+]
