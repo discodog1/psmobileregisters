@@ -1,17 +1,19 @@
 import {Http,HTTP_PROVIDERS} from 'angular2/http'
 import { Injectable, Inject } from 'angular2/core';
-import {Register,RegisterStudent, RegisterSchedule,Staff,Room,RegisterMark,RegisterSession} from '../models/objects'
+import {Register,RegisterStudent, RegisterSchedule,Staff,Room,RegisterMark,RegisterSession,DataSet} from '../models/objects'
 
 
 @Injectable()
 export class RegisterService {
   constructor(public http: Http) {
      console.log('Task Service created.', http);
+    
+     
   }
   
 
-  registers: Array<Register>;
-  
+
+ 
   getRegisters() {
    return this.http.get('app/models/registers.json')
     .map((responseData) => {
@@ -29,52 +31,7 @@ export class RegisterService {
    
   }
  
- 
- getRegisterStudents(registerID:Number) {
-   return this.http.get('app/models/registers.json')
-    .map((responseData) => {
-    
-    //given a list of registers, filter for single 
-    var filtered = jLinq.from(responseData.json())
-    .starts('registerID',registerID)
-    .first();
-      return filtered.students;
-    })
-    .map((registerStudents: Array<any>) => {
-      let result:Array<RegisterStudent> = [];
-      if (registerStudents) {
-        registerStudents.forEach((regS) => {
-          result.push(new RegisterStudent(regS.registerStudentID, regS.refNo,regS.surname,regS.firstName,regS.enrolmentID,regS.thumbnail,regS.completionStatusID,regS.lastAttended));
-        });
-      }
-      return result;
-    });
- }
- 
- 
- getRegister(registerID:Number) {
- return this.http.get('app/models/registers.json')
-    .map((responseData) => {
-    
-    var filtered = jLinq.from(responseData.json())
-    .starts("registerID",registerID)
-    .first();
-      return filtered;   
-    });
- }
-
- getRegisterSchedule(registerID:Number, registerScheduleID:Number) {
- return this.http.get('app/models/registers.json')
-    .map((responseData) => {
-    
-    var filtered = jLinq.from(jLinq.from(responseData.json())
-    .starts("registerID",registerID).select()[0].schedule)
-    .starts("registerScheduleID",registerScheduleID)
-    .first();
-      return filtered;   
-    });
- }
- 
+  
  getMarks() {
    return this.http.get('app/models/marks.json')
    .map((responseData) => {
@@ -84,40 +41,66 @@ export class RegisterService {
    })
  }
  
- getNewRegisterSession(registerID: number, sched: RegisterSchedule) {
-   var result =new RegisterSession;
-   
-   result.registerSessionID=12345-registerID;
-   result.registerID=registerID;
-   result.date=sched.date;
-   result.startTime=sched.startTime;
-   result.endTime=sched.endTime;
-   result.sessionNo=0;
-   result.noOfStudentsAttended=0;
-   
-   return result;
- }
  
- initialiseRegisterMarks(registerSessionID: number, registerID: number) {
-   var registerMarkID = 1;
+doShit(reg:Register) {
+    var ds = new DataSet;
+    
     return this.http.get('app/models/registers.json')
     .map((responseData) => {
     
-    //given a list of registers, filter for single 
-    var filtered = jLinq.from(responseData.json())
-    .starts('registerID',registerID)
+    ds.register= jLinq.from(responseData.json())
+    .starts('registerID',reg.registerID)
     .first();
-      return filtered.students;
+   
+    return ds
     })
-    .map((registerStudents: Array<any>) => {
-      let result:Array<RegisterMark> = [];
-      if (registerStudents) {
-        registerStudents.forEach((regS) => {
-          result.push(new RegisterMark(registerMarkID,registerSessionID,regS.registerStudentID,-1,regS));
+    .map((ds) => {
+        ds.schedule = jLinq.from(ds.register.schedule)
+        .starts('registerScheduleID',ds.register.nextScheduleID)
+        .first();
+      
+        return ds
+    })
+    .map((ds) => {
+        ds.students = jLinq.from(ds.register.students)
+        .select()
+       
+        return ds
+    })
+    .map((ds) => {
+       var result = new RegisterSession(
+           12345-ds.register.registerID,
+           ds.register.registerID,
+           0,
+           ds.schedule.date,
+           ds.schedule.startTime,
+           ds.schedule.endTime,          
+           0
+       )   
+        ds.session=result;
+      
+        return ds;
+    })
+    .map((ds) => {
+        var registerMarkID = 1;
+        let marks:Array<RegisterMark> = [];
+      if (ds.students) {
+        ds.students.forEach((regS) => {
+          marks.push(new RegisterMark(registerMarkID,ds.session.registerSessionID,regS.registerStudentID,-1,regS));
           registerMarkID+=1;
         });
       }
-      return result;
-    });
- }
-  };
+      ds.marks = marks;
+     
+      return ds;
+      
+    })  
+    
+    
+ 
+      
+    };
+    
+    
+    }
+    

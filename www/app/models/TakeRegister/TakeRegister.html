@@ -17,28 +17,27 @@
   <ion-card-content>
     <h4 >{{selectedRegister.title}}</h4>
     <br/>
-    <label for="sessionDate">Date:</label>
-    <input name="sessionDate" [(ng-model)]="registerSession.date" [value]="selectedSchedule.date">
+   <label for="sessionDate">Date:</label>
+    <input name="sessionDate" [(ng-model)]="ds.session.date" >
     <label for="sessionStart">Start Time:</label>
-    <input name="sessionStart"  [(ng-model)]="registerSession.startTime" [value]="selectedSchedule.startTime">
+    <input name="sessionStart"  [(ng-model)]="ds.session.startTime" >
     <label for="sessionEnd">End Time:</label>
-    <input name="sessionEnd"  [(ng-model)]="registerSession.endTime" [value]="selectedSchedule.endTime">
+    <input name="sessionEnd"  [(ng-model)]="ds.session.endTime" >
     
+
   </ion-card-content>
 </ion-card>
 
-
-
-
   </div>
-  
- <div *ng-if="students==false" padding>
+  {{ds.session | json}}
+
+ <div *ng-if="ds.students==false" padding>
     <h2>No students</h2>
  </div>
     
     
   <ion-list>
-  <ion-item *ng-for="#m of registerMarks" >
+  <ion-item *ng-for="#m of ds.marks" >
     {{m | json}}
     <br/>
     <ion-thumbnail item-left>

@@ -62,13 +62,13 @@ export class Room {
 
 export class RegisterSession {
  constructor(
-  public registerSessionID: number,
-  public registerID: number,
-  public sessionNo: number,
-  public date: string,
-  public startTime: string,
-  public endTime: string,
-  public noOfStudentsAttended: number
+  public registerSessionID?: number,
+  public registerID?: number,
+  public sessionNo?: number,
+  public date?: string,
+  public startTime?: string,
+  public endTime?: string,
+  public noOfStudentsAttended?: number
  ){}
   
   
@@ -91,5 +91,14 @@ export class MarkType {
     public mark: string,
     public description: string
    ){}
-  
 }
+  
+  export class DataSet {
+      constructor(
+         public schedule: RegisterSchedule,
+         public session: RegisterSession,
+         public marks: RegisterMark,
+         public students: RegisterStudent,
+         public register:Register
+      ){}
+  }

@@ -1,5 +1,5 @@
 import {IonicApp,Page, NavController, NavParams} from 'ionic/ionic';
-import {Register,RegisterStudent,RegisterSchedule,RegisterMark,RegisterSession,MarkType} from '../objects';
+import {Register,RegisterStudent,RegisterSchedule,RegisterMark,RegisterSession,MarkType,DataSet} from '../objects';
 import {RegisterService} from '../../services/RegisterService'
 
 @Page({
@@ -21,19 +21,11 @@ export class TakeRegister {
     // If we navigated to this page, we will have an item available as a nav param
     this.selectedRegister = navParams.get('data');  
     
-    this.selectedSchedule = this
-    .service
-    .getRegisterSchedule(this.selectedRegister.registerID,this.selectedRegister.nextScheduleID)
-    .subscribe(res => this.selectedSchedule = res);
-    
-    //get register students for register
-    this.service.getRegisterStudents(this.selectedRegister.registerID).subscribe(res => this.students = res);
+    this.ds = new DataSet;
+    this.service.doShit(this.selectedRegister)
+    .subscribe(res => this.ds=res,err=>console.log(err),()=>console.log('got it!',this.ds));
   
    this.service.getMarks().subscribe(res => this.markTypes = res);
-    
-   this.registerSession = this.service.getNewRegisterSession(this.selectedRegister.registerID,this.selectedSchedule);
-    
-   this.service.initialiseRegisterMarks(this.registerSession.registerSessionID,this.selectedRegister.registerID).subscribe(res => this.registerMarks = res);
     
   };
   
