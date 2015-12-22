@@ -42,7 +42,7 @@ export class RegisterService {
  }
  
  
-doShit(reg:Register) {
+loadDataSet(reg:Register) {
     var ds = new DataSet;
     
     return this.http.get('app/models/registers.json')
@@ -55,16 +55,20 @@ doShit(reg:Register) {
     return ds
     })
     .map((ds) => {
-        ds.schedule = jLinq.from(ds.register.schedule)
-        .starts('registerScheduleID',ds.register.nextScheduleID)
+        var s = RegisterSchedule;         
+        s = jLinq.from(ds.register.schedule) //all schedules
+        .starts('registerScheduleID',ds.register.nextScheduleID) //just next one
         .first();
-      
+        
+        ds.schedule = new RegisterSchedule(s.registerScheduleID,s.date,s.startTime,s.endTime,s.lecturers,s.rooms);
+        
         return ds
     })
     .map((ds) => {
+        if (ds.register.students) {
         ds.students = jLinq.from(ds.register.students)
         .select()
-       
+        }
         return ds
     })
     .map((ds) => {
@@ -82,6 +86,7 @@ doShit(reg:Register) {
         return ds;
     })
     .map((ds) => {
+         if (ds.register.students) {
         var registerMarkID = 1;
         let marks:Array<RegisterMark> = [];
       if (ds.students) {
@@ -89,18 +94,49 @@ doShit(reg:Register) {
           marks.push(new RegisterMark(registerMarkID,ds.session.registerSessionID,regS.registerStudentID,-1,regS));
           registerMarkID+=1;
         });
-      }
+      }        
       ds.marks = marks;
-     
+         }
       return ds;
       
-    })  
-    
-    
- 
-      
+    })      
     };
     
-    
+    save(s:RegisterSession, m:RegisterMark[]) {
+        
+        if (!localStorage.getItem("sessions")){
+              localStorage.setItem("sessions", '[]');
+        }
+        var sessions = JSON.parse(localStorage.getItem("sessions"));
+        
+        if (s.length) {
+            while (s.length >0) {
+                sessions.push(s.pop());
+            }
+        }
+        else {
+            sessions.push(s);
+        }
+        
+        localStorage.setItem("sessions", JSON.stringify(sessions));
+        
+        if (!localStorage.getItem("marks")){
+              localStorage.setItem("marks", '[]');
+        }
+        var marks = JSON.parse(localStorage.getItem("marks"));       
+        
+        if (m.length) {
+            while (m.length >0) {
+                marks.push(m.pop());
+            }
+        }
+        else {
+            marks.push(m);
+        }
+        
+        localStorage.setItem("marks", JSON.stringify(marks));
+      
+        return true;
+    }
     }
     

@@ -1,6 +1,7 @@
 import {IonicApp,Page, NavController, NavParams} from 'ionic/ionic';
 import {Register,RegisterStudent,RegisterSchedule,RegisterMark,RegisterSession,MarkType,DataSet} from '../objects';
 import {RegisterService} from '../../services/RegisterService'
+import {HomePage} from '../../pages/home/home';
 
 @Page({
    selector: 'take-register', 
@@ -22,7 +23,7 @@ export class TakeRegister {
     this.selectedRegister = navParams.get('data');  
     
     this.ds = new DataSet;
-    this.service.doShit(this.selectedRegister)
+    this.service.loadDataSet(this.selectedRegister)
     .subscribe(res => this.ds=res,err=>console.log(err),()=>console.log('got it!',this.ds));
   
    this.service.getMarks().subscribe(res => this.markTypes = res);
@@ -30,7 +31,10 @@ export class TakeRegister {
   };
   
   save() {
-    console.log(this.registerMarks);
+    if (this.service.save(this.ds.session, this.ds.marks)) {
+        //ideally this shouldn't go on the stack, as the back button is enabled.
+        //need to work out how to go direct to home and clear nav stack
+        this.nav.push(HomePage);
   }
   
 

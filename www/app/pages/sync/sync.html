@@ -7,5 +7,27 @@
 
 <ion-content>
 
+<h3>Send data to the server</h3>
 
+Sessions:
+<ion-card>
+  <ion-card-header>
+   <h3> {{statusS}} </h3>
+  </ion-card-header>
+  <ion-card-content>
+   <p> {{detailsS}} </p>
+  </ion-card-content>
+</ion-card>
+
+Marks:
+<ion-card>
+  <ion-card-header>
+   <h3> {{statusM}} </h3>
+  </ion-card-header>
+  <ion-card-content>
+   <p> {{detailsM}} </p>
+  </ion-card-content>
+</ion-card>
+
+<button full (click)="Sync()">Sync</button>
 </ion-content>

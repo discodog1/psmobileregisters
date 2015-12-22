@@ -31,12 +31,12 @@
   </div>
   {{ds.session | json}}
 
- <div *ng-if="ds.students==false" padding>
+ <div *ng-if="!ds.students" padding>
     <h2>No students</h2>
  </div>
     
     
-  <ion-list>
+  <ion-list *ng-if="ds.students">
   <ion-item *ng-for="#m of ds.marks" >
     {{m | json}}
     <br/>
@@ -53,6 +53,6 @@
   </ion-item>
 
 </ion-list>
-<button full (click)="save()">Save</button>
+<button *ng-if="ds.students" full (click)="save()">Save</button>
 
 </ion-content>
