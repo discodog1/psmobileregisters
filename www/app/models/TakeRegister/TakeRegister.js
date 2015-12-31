@@ -1,8 +1,8 @@
+/* global console */
 import {IonicApp,Page, NavController, NavParams} from 'ionic/ionic';
 import {Register,RegisterStudent,RegisterSchedule,RegisterMark,RegisterSession,MarkType,DataSet} from '../objects';
 import {RegisterService} from '../../services/RegisterService'
 import {HomePage} from '../../pages/home/home';
-
 @Page({
    selector: 'take-register', 
    templateUrl:'app/models/TakeRegister/TakeRegister.html',
@@ -31,12 +31,12 @@ export class TakeRegister {
   };
   
   save() {
-    if (this.service.save(this.ds.session, this.ds.marks)) {
+    if (this.service.save(this.ds)) {
         //ideally this shouldn't go on the stack, as the back button is enabled.
         //need to work out how to go direct to home and clear nav stack
         this.nav.push(HomePage);
   }
-  
+ 
+}
 
-  
 }

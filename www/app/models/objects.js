@@ -8,7 +8,6 @@ export class Register{
   public registerID: number,
   public registerNo: string,
   public title: string,
-  public nextScheduleID: number,
   public students?: RegisterStudent[],
   public schedule?: RegisterSchedule[]
  )
@@ -35,6 +34,7 @@ export class RegisterStudent {
 
 export class RegisterSchedule {
   constructor(
+  public taken: boolean,
   public registerScheduleID: number,
   public date: string,
   public startTime: string,

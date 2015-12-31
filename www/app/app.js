@@ -1,13 +1,17 @@
-import {App, IonicApp, Platform} from 'ionic/ionic';
+/* global console */
+import {App, IonicApp, Platform} from 'ionic/ionic'
+import {HomePage} from './pages/home/home'
+import {LogOutPage} from './pages/logout/logout'
+import {SyncPage} from './pages/sync/sync'
+import {HelpPage} from './pages/help/help'
+import {PreferencesPage} from './pages/preferences/preferences'
+import {AboutPage} from './pages/about/about'
+import {RegisterService} from './services/RegisterService'
+import {LoginPage} from './pages/login/login'
+import {JwtHelper,AuthHttp} from 'angular2-jwt/angular2-jwt'
 
-import {HomePage} from './pages/home/home';
-import {LogOutPage} from './pages/logout/logout';
-import {SyncPage} from './pages/sync/sync';
-import {HelpPage} from './pages/help/help';
-import {PreferencesPage} from './pages/preferences/preferences';
-import {AboutPage} from './pages/about/about';
-import {RegisterService} from './services/RegisterService';
-
+import {Component, View, bootstrap, provide} from 'angular2/angular2';
+import {HTTP_PROVIDERS, Http} from 'angular2/http';
 
 @App({
     templateUrl: 'app/app.html',
@@ -17,9 +21,11 @@ class MyApp {
     constructor(app: IonicApp, platform: Platform) {
         this.app = app;
         this.platform = platform;
-
+        
         this.initializeApp();
-
+        
+            
+  
         // menu items
         this.pages = [
 
@@ -30,8 +36,30 @@ class MyApp {
           { title: 'About', component: AboutPage, icon: 'ion-information-circled'},
           { title: 'Log Out', component: LogOutPage, icon: 'ion-log-out'}
         ];
-
-        this.rootPage = HomePage;
+        
+        
+        this.jwt = localStorage.getItem('jwt');
+        
+        //check credentials exist
+        if (this.jwt) {
+            //check credentials valid
+            this.jwtHelper=  new JwtHelper();
+           
+            if (this.jwtHelper.isTokenExpired(this.jwt)) {
+                //cookie expired - login again
+                this.rootPage = LoginPage;
+            }
+            else {
+                //cookie fine
+                this.rootPage = HomePage;
+            }
+             
+        }
+        //no login cookie
+        else {
+            this.rootPage = LoginPage;
+        }
+        
     }
   initializeApp() {
     this.platform.ready().then(() => {
@@ -61,4 +89,13 @@ class MyApp {
     let nav = this.app.getComponent('nav');
     nav.setRoot(page.component);
   }
+  
+  
 }
+
+bootstrap(App, [
+  HTTP_PROVIDERS,
+  provide(AuthHttp, { useFactory: () => {
+    return new AuthHttp({})
+  }})
+])

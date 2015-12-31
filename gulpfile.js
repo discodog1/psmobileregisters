@@ -6,7 +6,7 @@
 var gulp = require('gulp');
 var path = require('path');
 var config = require('./ionic.config');
-
+var shell = require('gulp-shell');
 
 /******************************************************************************
  * gulp watch
@@ -75,3 +75,6 @@ gulp.task('clean', function(done) {
   var del = require('del');
   del([config.paths.buildDir], done);
 });
+
+
+gulp.task('serve', shell.task(['ionic serve --lab']));

@@ -29,7 +29,7 @@
 </ion-card>
 
   </div>
-  {{ds.session | json}}
+{{ds.schedule | json}}
 
  <div *ng-if="!ds.students" padding>
     <h2>No students</h2>
@@ -38,7 +38,7 @@
     
   <ion-list *ng-if="ds.students">
   <ion-item *ng-for="#m of ds.marks" >
-    {{m | json}}
+
     <br/>
     <ion-thumbnail item-left>
      <img [src]="m.student.thumbnail">
@@ -46,8 +46,10 @@
     <h2>{{m.student.firstName}} {{m.student.surname}}</h2>
     <h4>{{m.registerStudentID}}</h4>
     <p>Last Attended: {{m.student.lastAttended ? m.student.lastAttended : 'N/A'}}</p>
-      <ion-list radio-group  [(ng-model)]="m.markTypeID">
-      <ion-radio *ng-for="#mark of markTypes"  value="{{mark.markTypeID}}">{{mark.mark}} - {{mark.description}}</ion-radio>   
+     <ion-list radio-group  [(ng-model)]="m.markTypeID">
+      <ion-radio *ng-for="#mark of markTypes"  value="{{mark.markTypeID}}">  
+                 {{mark.mark}} - {{mark.description}}                       
+          </ion-radio> 
       </ion-list>
      
   </ion-item>
