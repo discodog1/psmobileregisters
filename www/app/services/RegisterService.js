@@ -4,14 +4,14 @@ import {Http,HTTP_PROVIDERS,Headers} from 'angular2/http'
 import { Injectable, Inject } from 'angular2/core';
 import {Register,RegisterStudent, RegisterSchedule,Staff,Room,RegisterMark,RegisterSession,DataSet} from '../models/objects'
 import {AuthHttp} from 'angular2-jwt/angular2-jwt'
-import {provide} from 'angular2/angular2';
+import {provide} from 'angular2/core';
 
 @Injectable()
 export class RegisterService {
   constructor(public http: Http) {
      console.log('Task Service created.', http);
     
-     this.jwt = localStorage.getItem('jwt');
+     this.jwt = localStorage.getItem('id_token');
      
       this.authHeader = new Headers();
         if(this.jwt) {
@@ -21,8 +21,7 @@ export class RegisterService {
   
 
   getRegisters() {
-      
-   return this.http.get('app/models/registers.json', {headers: this.authHeader})
+   return this.http.get('http://localhost/psmobileregisters_backend/getregisterstoday.ashx', {headers: this.authHeader})
     .map((responseData) => {
       return responseData.json();
     })
@@ -30,9 +29,10 @@ export class RegisterService {
       let result:Array<Register> = [];
       if (registers) {
         registers.forEach((reg) => {
-          result.push(new Register(reg.registerID,reg.registerNo,reg.title));
+          result.push(new Register(reg.registerID,reg.registerNo,reg.title,reg.marked));
         });
       }
+      localStorage.setItem("Registers",JSON.stringify(result));
       return result;
     });
    
@@ -40,9 +40,9 @@ export class RegisterService {
  
   
  getMarks() {
-   return this.http.get('app/models/marks.json', {headers: this.authHeader})
+   return this.http.get('http://localhost/psmobileregisters_backend/GetMarkTypes.ashx', {headers: this.authHeader})
    .map((responseData) => {
-     
+     localStorage.setItem("MarkTypes",JSON.stringify(responseData.json()));
      return responseData.json()
      
    })
@@ -52,7 +52,7 @@ export class RegisterService {
 loadDataSet(reg:Register) {
     var ds = new DataSet;
     
-    return this.http.get('app/models/registers.json', {headers: this.authHeader})
+    return this.http.get('http://localhost/psmobileregisters_backend/getregisterstoday.ashx', {headers: this.authHeader})
     .map((responseData) => {
     
     ds.register= jLinq.from(responseData.json())
@@ -105,6 +105,7 @@ loadDataSet(reg:Register) {
       }        
       ds.marks = marks;
          }
+     
       return ds;
       
     })      
@@ -113,8 +114,8 @@ loadDataSet(reg:Register) {
     save(ds:DataSet) {
         
         var s:RegisterSession = ds.session;
-        var m:RegisterMark[]=ds.marks;
-        
+        s.marks = ds.marks;
+             
         if (!localStorage.getItem("sessions")){
               localStorage.setItem("sessions", '[]');
         }
@@ -131,21 +132,21 @@ loadDataSet(reg:Register) {
         
         localStorage.setItem("sessions", JSON.stringify(sessions));
         
-        if (!localStorage.getItem("marks")){
-              localStorage.setItem("marks", '[]');
-        }
-        var marks = JSON.parse(localStorage.getItem("marks"));       
+        // if (!localStorage.getItem("marks")){
+        //       localStorage.setItem("marks", '[]');
+        // }
+        // var marks = JSON.parse(localStorage.getItem("marks"));       
         
-        if (m.length) {
-            while (m.length >0) {
-                marks.push(m.pop());
-            }
-        }
-        else {
-            marks.push(m);
-        }
+        // if (m.length) {
+        //     while (m.length >0) {
+        //         marks.push(m.pop());
+        //     }
+        // }
+        // else {
+        //     marks.push(m);
+        // }
         
-        localStorage.setItem("marks", JSON.stringify(marks));
+        // localStorage.setItem("marks", JSON.stringify(marks));
       
       //flag schedule as done so it's not marked again
        ds.schedule.taken = true;

@@ -1,6 +1,6 @@
 import {IonicApp, Page, NavController, NavParams} from 'ionic/ionic'
 import {HomePage} from '../home/home'
-import {JwtHelper} from 'angular2-jwt/angular2-jwt'
+import {JwtHelper,AuthHttp} from 'angular2-jwt/angular2-jwt'
 import {Http, Headers} from 'angular2/http'
 
 @Page({
@@ -32,16 +32,20 @@ export class LoginPage {
     })
     .map(res => res.json())
     .subscribe(
-      data => this.saveJwt(data.jwt),
-      err => console.log(err),
-      () =>  this.nav.push(HomePage)
+      data => this.checkJwt(data),
+      err => console.log(err)
     );
 }
     
     
-    saveJwt(jwt) {
-        if(jwt) {
-            localStorage.setItem('jwt', jwt)
+    checkJwt(response) {
+        if(response.error) {
+           console.log(response.error);
+           alert(response.error);
+        }
+        else {
+             localStorage.setItem('id_token', response.id_token);
+             this.nav.push(HomePage)
         }
     }
     

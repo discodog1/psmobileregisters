@@ -8,13 +8,13 @@
 
 <ion-content padding class="RegistersList">
   <ion-list>
-<button class="item" ion-item *ngFor="#reg of registers" (click)="selectRegister($event,reg)">
+<button [ng-class]="{disabled: reg.marked=='Yes'}"  class="item" ion-item *ngFor="#reg of registers" (click)="selectRegister($event,reg)">
      <ion-card>
-       <ion-card-header>
+       <ion-card-header [ng-class]="{marked: reg.marked=='Yes'}">
          <h2>{{reg.registerNo}}</h2>
          </ion-card-header>
-         <ion-card-content>
-           <p>{{reg.title}}</p>
+         <ion-card-content [ng-class]="{marked: reg.marked=='Yes'}">
+           <p>{{reg.title}}</p>       
            </ion-card-content>
       </ion-card>
   </button>

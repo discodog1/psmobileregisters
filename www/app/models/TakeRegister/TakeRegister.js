@@ -3,6 +3,11 @@ import {IonicApp,Page, NavController, NavParams} from 'ionic/ionic';
 import {Register,RegisterStudent,RegisterSchedule,RegisterMark,RegisterSession,MarkType,DataSet} from '../objects';
 import {RegisterService} from '../../services/RegisterService'
 import {HomePage} from '../../pages/home/home';
+import {CanActivate} from 'angular2/router'
+import {tokenNotExpired} from 'angular2-jwt/angular2-jwt';
+
+@CanActivate(() => tokenNotExpired())
+
 @Page({
    selector: 'take-register', 
    templateUrl:'app/models/TakeRegister/TakeRegister.html',
@@ -24,10 +29,15 @@ export class TakeRegister {
     
     this.ds = new DataSet;
     this.service.loadDataSet(this.selectedRegister)
-    .subscribe(res => this.ds=res,err=>console.log(err),()=>console.log('got it!',this.ds));
+    .subscribe(res => this.ds=res,err=>console.log(err),()=>console.log('dataset loaded!',this.ds));
   
+   if (localStorage.getItem("MarkTypes")) {
+         this.markTypes = JSON.parse(localStorage.getItem("MarkTypes"));
+      }
+      else {
    this.service.getMarks().subscribe(res => this.markTypes = res);
-    
+      }
+      
   };
   
   save() {

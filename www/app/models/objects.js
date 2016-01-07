@@ -8,8 +8,10 @@ export class Register{
   public registerID: number,
   public registerNo: string,
   public title: string,
+  public marked: string,
   public students?: RegisterStudent[],
   public schedule?: RegisterSchedule[]
+  
  )
  {
    
@@ -68,7 +70,8 @@ export class RegisterSession {
   public date?: string,
   public startTime?: string,
   public endTime?: string,
-  public noOfStudentsAttended?: number
+  public noOfStudentsAttended?: number,
+  public marks?: RegisterMark[]
  ){}
   
   
