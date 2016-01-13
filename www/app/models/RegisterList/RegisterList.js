@@ -1,7 +1,7 @@
 import {IonicApp, Page, NavController, NavParams} from 'ionic/ionic'
 import {Component} from 'angular2/core';
 
-import {TakeRegister} from '../TakeRegister/TakeRegister'
+import {RegisterSessionList} from '../RegisterSessionList/RegisterSessionList'
 import {RegisterService} from '../../services/RegisterService'
 import {Register} from '../objects'
 import {CanActivate} from 'angular2/router'
@@ -41,12 +41,7 @@ export class RegisterList {
   //"register click event"
   selectRegister(event,register: Register) { 
     
-    //get single register object to pass to next page - MOVE THIS OUT OF HERE
-    var filtered = jLinq.from(this.registers)
-    .starts('registerID',register.registerID)
-    .first()
-    
     //navigate
-    this.nav.push(TakeRegister,{data:filtered});
+    this.nav.push(RegisterSessionList,{data:register});
     }
 }

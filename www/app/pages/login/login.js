@@ -12,6 +12,22 @@ export class LoginPage {
   constructor( app: IonicApp, nav: NavController, navParams: NavParams,public http: Http) {
        this.nav = nav;
     this.app = app;
+    
+    // this.jwt = localStorage.getItem('id_token');
+        
+    //     //check credentials exist
+    //     if (this.jwt) {
+    //         //check credentials valid
+    //         this.jwtHelper=  new JwtHelper();
+           
+    //         if (this.jwtHelper.isTokenExpired(this.jwt)) {
+    //            alert('Session expired, please log in again')
+    //         }
+    //         else {
+    //            this.nav.push(HomePage)
+    //         }
+             
+    //     }
   }
 
   login(event, username, password) {
@@ -49,5 +65,5 @@ export class LoginPage {
         }
     }
     
-    
+
 }

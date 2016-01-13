@@ -21,9 +21,6 @@ export class SyncPage {
     
     this.service = regService;
     
-    // this.statusM="status";
-    // this.detailsM="details";
-    
      this.jwt = localStorage.getItem('id_token');
      
       this.authHeader = new Headers();
@@ -35,18 +32,17 @@ export class SyncPage {
     
     
       Sync() {
-          var sessions = localStorage.getItem("sessions");
-        //   var marks = localStorage.getItem("marks");
+          var data = localStorage.getItem("MyRegistersToday");
           var urlS = 'http://localhost/PSMobileRegisters_Backend/HandleSessions.ashx';
-        //   var urlM = 'http://localhost/PSMobileRegisters_Backend/HandleMarks.ashx';
+     
           
-          if (sessions) {
+          if (data.length > 2) {
               this.statusS="Processing";
               this.detailsS = "Posting to:" + urlS + "\n"
-              this.http.post(urlS,sessions, {headers: this.authHeader})
+              this.http.post(urlS,data, {headers: this.authHeader})
               .subscribe(
                   res=>this.ParseSessionsResult(res) + "\n",
-                  err=>this.detailsS+=err + "\n"
+                  err=>this.detailsS=err + "\n"
                   );
               
           }
@@ -55,27 +51,13 @@ export class SyncPage {
               this.detailsS = "No sessions to sync";
           }
           
-        //   if (marks) {
-        //       this.statusM="Processing";
-        //       this.detailsM = "Posting to:" + urlM + "\n"
-        //       this.http.post(urlM,marks, {headers: this.authHeader})
-        //       .subscribe(
-        //           res=>this.ParseMarksResult(res) + "\n",
-        //           err=>this.detailsM+=err + "\n"
-        //           );
-              
-        //   }
-        //    else {
-        //       this.statusM = "Done";
-        //       this.detailsM = "No marks to sync";
-        //   }
-    
+      
       }
       
       ParseSessionsResult(result) {
           
          var success=false;
-          if (result.status="200" && result.statusText=="Ok") {
+          if (result._body == "Session(s) Uploaded") {
               success=true;
            
           }
@@ -87,29 +69,14 @@ export class SyncPage {
                this.statusS = "Failed to Upload";
           }
           
-          this.detailsS+=result._body;
+          this.detailsS=result._body;
           
       }
-      
-    //   ParseMarksResult(result) {
-    //       var success=false;
-    //       if (result.status="200" && result.statusText=="Ok") {
-    //           success=true;
-    //       }
-    //        if (success) {
-    //            this.statusM = "Success";
-    //           this.ClearMarks()
-    //       }
-    //       this.detailsM+=result._body;
-    //   }
-      
-    //   ClearMarks() {
-    //       localStorage.removeItem("marks");
-    //   }
-      
+        
       ClearSessions() {
-          localStorage.removeItem("sessions");
-          localStorage.removeItem("Registers"); //refresh list of registers today
-          this.service.getRegisters().subscribe(res=> this.registers = res);
+         
+          localStorage.removeItem("Registers"); 
+          localStorage.removeItem("MyRegistersToday"); 
+          this.service.getRegisters().subscribe(res=> this.registers = res); //reloads cache
       }
 }

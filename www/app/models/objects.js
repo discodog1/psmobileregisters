@@ -5,13 +5,11 @@ import {Component} from 'angular2/core'
 })
 export class Register{
  constructor(
+  public mRegisterID,
   public registerID: number,
   public registerNo: string,
   public title: string,
-  public marked: string,
-  public students?: RegisterStudent[],
-  public schedule?: RegisterSchedule[]
-  
+  public sessions?: RegisterSession[]
  )
  {
    
@@ -20,10 +18,11 @@ export class Register{
 
 export class RegisterStudent {
  constructor(
-  public registerStudentID: number,
+
+  public mStudentDetailID,
   public refNo: string,
   public surname: string,
-  public firstName: string,
+  public firstForename: string,
   public enrolmentID: number,
   public thumbnail: string,
   public completionStatusID: string,
@@ -33,19 +32,6 @@ export class RegisterStudent {
    
  }
 }
-
-export class RegisterSchedule {
-  constructor(
-  public taken: boolean,
-  public registerScheduleID: number,
-  public date: string,
-  public startTime: string,
-  public endTime: string,
-  public lecturers: Staff[],
-  public rooms: Room[]
-  ){}
-}
-
 export class Staff {
    constructor(
   public staffID: number,
@@ -64,14 +50,18 @@ export class Room {
 
 export class RegisterSession {
  constructor(
+  public mRegisterSessionID,
   public registerSessionID?: number,
-  public registerID?: number,
+  public registerTaken?: boolean,
+  public mRegisterID?: number,
   public sessionNo?: number,
   public date?: string,
   public startTime?: string,
   public endTime?: string,
   public noOfStudentsAttended?: number,
-  public marks?: RegisterMark[]
+  public marks?: RegisterMark[],
+  public lecturers?: Staff[],
+  public rooms?: Room[]
  ){}
   
   
@@ -79,10 +69,11 @@ export class RegisterSession {
 
 export class RegisterMark {
    constructor(
-    public registerMarkID: number,
-    public registerSessionID: number,
-    public registerStudentID: number,
+    public mRegisterMarkID,
+    public mRegisterSessionID,
+    public mStudentDetailID,
     public markTypeID: number,
+    public sequenceNo: number,
     public student: RegisterStudent
    ){}
   
@@ -97,11 +88,9 @@ export class MarkType {
 }
   
   export class DataSet {
-      constructor(
-         public schedule: RegisterSchedule,
+      constructor(     
          public session: RegisterSession,
-         public marks: RegisterMark,
-         public students: RegisterStudent,
+         public marks: RegisterMark,     
          public register:Register
       ){}
   }

@@ -2,7 +2,7 @@
 
 import {Http,HTTP_PROVIDERS,Headers} from 'angular2/http'
 import { Injectable, Inject } from 'angular2/core';
-import {Register,RegisterStudent, RegisterSchedule,Staff,Room,RegisterMark,RegisterSession,DataSet} from '../models/objects'
+import {Register,RegisterStudent, Staff,Room,RegisterMark,RegisterSession,DataSet} from '../models/objects'
 import {AuthHttp} from 'angular2-jwt/angular2-jwt'
 import {provide} from 'angular2/core';
 
@@ -29,10 +29,11 @@ export class RegisterService {
       let result:Array<Register> = [];
       if (registers) {
         registers.forEach((reg) => {
-          result.push(new Register(reg.registerID,reg.registerNo,reg.title,reg.marked));
+          result.push(new Register(reg.mRegisterID, reg.registerID,reg.registerNo,reg.title));
         });
       }
       localStorage.setItem("Registers",JSON.stringify(result));
+      localStorage.setItem("MyRegistersToday",JSON.stringify(registers));
       return result;
     });
    
@@ -48,109 +49,63 @@ export class RegisterService {
    })
  }
  
- 
-loadDataSet(reg:Register) {
-    var ds = new DataSet;
-    
-    return this.http.get('http://localhost/psmobileregisters_backend/getregisterstoday.ashx', {headers: this.authHeader})
-    .map((responseData) => {
-    
-    ds.register= jLinq.from(responseData.json())
+ loadSessions(reg:Register) {
+      let result:Array<RegisterSession> = [];
+      
+      var data = JSON.parse(localStorage.getItem("MyRegistersToday"));
+      
+      result = jLinq.from(data)
     .starts('registerID',reg.registerID)
     .first();
    
-    return ds
-    })
-    .map((ds) => {
-        var s = RegisterSchedule;         
-        s = jLinq.from(ds.register.schedule) //all schedules
-        .starts("taken", false)
-        .sort("date")
-        .first();
-        
-        ds.schedule = new RegisterSchedule(s.taken,s.registerScheduleID,s.date,s.startTime,s.endTime,s.lecturers,s.rooms);
-        
-        return ds
-    })
-    .map((ds) => {
-        if (ds.register.students) {
-        ds.students = jLinq.from(ds.register.students)
-        .select()
-        }
-        return ds
-    })
-    .map((ds) => {
-       var result = new RegisterSession(
-           12345-ds.register.registerID,
-           ds.register.registerID,
-           0,
-           ds.schedule.date,
-           ds.schedule.startTime,
-           ds.schedule.endTime,          
-           0
-       )   
-        ds.session=result;
-      
-        return ds;
-    })
-    .map((ds) => {
-         if (ds.register.students) {
-        var registerMarkID = 1;
-        let marks:Array<RegisterMark> = [];
-      if (ds.students) {
-        ds.students.forEach((regS) => {
-          marks.push(new RegisterMark(registerMarkID,ds.session.registerSessionID,regS.registerStudentID,-1,regS));
-          registerMarkID+=1;
-        });
-      }        
-      ds.marks = marks;
-         }
+   return result;
      
-      return ds;
-      
-    })      
+ }
+loadDataSet(sess:RegisterSession) {
+    var ds = new DataSet;
+    
+    var data = JSON.parse(localStorage.getItem("MyRegistersToday"));
+    
+    ds.register= jLinq.from(data)
+    .starts('registerID',sess.registerID)
+    .first();
+   
+   ds.session = jLinq.from(ds.register.sessions)
+   .starts('mRegisterSessionID',sess.mRegisterSessionID)
+   .first();
+  //ds.register.sessions[0];
+   
+   
+   ds.marks = ds.session.marks;
+    return ds
+   
+        
     };
     
-    save(ds:DataSet) {
+    save(sess:RegisterSession) {
+        let result:Array<Register> = [];
         
-        var s:RegisterSession = ds.session;
-        s.marks = ds.marks;
-             
-        if (!localStorage.getItem("sessions")){
-              localStorage.setItem("sessions", '[]');
-        }
-        var sessions = JSON.parse(localStorage.getItem("sessions"));
+        //get original data
+        result = JSON.parse(localStorage.getItem("MyRegistersToday"));
         
-        if (s.length) {
-            while (s.length >0) {
-                sessions.push(s.pop());
+       sess.registerTaken = true;
+          
+        if (result) {
+            for (var i=0;i < result.length;i++) {
+                if (result[i].mRegisterID === sess.mRegisterID) {
+                    for (var x=0;x<result[i].sessions.length;x++) {
+                        if (result[i].sessions[x].mRegisterSessionID === sess.mRegisterSessionID) {
+                            result[i].sessions[x] = sess
+                            break;
+                        }
+                    }
+                }
             }
-        }
-        else {
-            sessions.push(s);
-        }
-        
-        localStorage.setItem("sessions", JSON.stringify(sessions));
-        
-        // if (!localStorage.getItem("marks")){
-        //       localStorage.setItem("marks", '[]');
-        // }
-        // var marks = JSON.parse(localStorage.getItem("marks"));       
-        
-        // if (m.length) {
-        //     while (m.length >0) {
-        //         marks.push(m.pop());
-        //     }
-        // }
-        // else {
-        //     marks.push(m);
-        // }
-        
-        // localStorage.setItem("marks", JSON.stringify(marks));
-      
-      //flag schedule as done so it's not marked again
-       ds.schedule.taken = true;
-       
+        };
+            
+        //store changes                
+        localStorage.setItem("MyRegistersToday", JSON.stringify(result));
+                
         return true;
     }
     

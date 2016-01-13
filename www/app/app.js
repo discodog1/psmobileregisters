@@ -38,7 +38,7 @@ class MyApp {
         ];
         
         
-        this.jwt = localStorage.getItem('jwt');
+        this.jwt = localStorage.getItem('id_token');
         
         //check credentials exist
         if (this.jwt) {
@@ -93,9 +93,9 @@ class MyApp {
   
 }
 
-bootstrap(App, [
-  HTTP_PROVIDERS,
-  provide(AuthHttp, { useFactory: () => {
-    return new AuthHttp({})
-  }})
-])
+// bootstrap(App, [
+//   HTTP_PROVIDERS,
+//   provide(AuthHttp, { useFactory: () => {
+//     return new AuthHttp({})
+//   }})
+// ])

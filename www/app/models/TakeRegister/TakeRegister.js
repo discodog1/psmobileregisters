@@ -1,6 +1,6 @@
 /* global console */
 import {IonicApp,Page, NavController, NavParams} from 'ionic/ionic';
-import {Register,RegisterStudent,RegisterSchedule,RegisterMark,RegisterSession,MarkType,DataSet} from '../objects';
+import {Register,RegisterStudent,RegisterMark,RegisterSession,MarkType,DataSet} from '../objects';
 import {RegisterService} from '../../services/RegisterService'
 import {HomePage} from '../../pages/home/home';
 import {CanActivate} from 'angular2/router'
@@ -25,12 +25,10 @@ export class TakeRegister {
     this.service = regService;
     
     // If we navigated to this page, we will have an item available as a nav param
-    this.selectedRegister = navParams.get('data');  
+    this.selectedRegister = navParams.get('register');
+    this.selectedRegisterSession = navParams.get('session');  
     
-    this.ds = new DataSet;
-    this.service.loadDataSet(this.selectedRegister)
-    .subscribe(res => this.ds=res,err=>console.log(err),()=>console.log('dataset loaded!',this.ds));
-  
+
    if (localStorage.getItem("MarkTypes")) {
          this.markTypes = JSON.parse(localStorage.getItem("MarkTypes"));
       }
@@ -41,7 +39,7 @@ export class TakeRegister {
   };
   
   save() {
-    if (this.service.save(this.ds)) {
+    if (this.service.save(this.selectedRegisterSession)) {
         //ideally this shouldn't go on the stack, as the back button is enabled.
         //need to work out how to go direct to home and clear nav stack
         this.nav.push(HomePage);

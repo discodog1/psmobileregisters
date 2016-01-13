@@ -9,7 +9,7 @@
 
     <ion-content class="padding TakeRegister">    
           <h3>New Session</h3>
-<div *ng-if="selectedRegister" padding>
+<div *ng-if="selectedRegisterSession" padding>
   <ion-card>
   <ion-card-header>
       <h2>{{selectedRegister.registerNo}}</h2>
@@ -18,43 +18,42 @@
     <h4 >{{selectedRegister.title}}</h4>
     <br/>
    <label for="sessionDate">Date:</label>
-    <input name="sessionDate" [(ng-model)]="ds.session.date" >
+    <input name="sessionDate" [(ng-model)]="selectedRegisterSession.date" >
     <label for="sessionStart">Start Time:</label>
-    <input name="sessionStart"  [(ng-model)]="ds.session.startTime" >
+    <input name="sessionStart"  [(ng-model)]="selectedRegisterSession.startTime" >
     <label for="sessionEnd">End Time:</label>
-    <input name="sessionEnd"  [(ng-model)]="ds.session.endTime" >
+    <input name="sessionEnd"  [(ng-model)]="selectedRegisterSession.endTime" >
     
 
   </ion-card-content>
 </ion-card>
 
   </div>
-{{ds.schedule | json}}
-
- <div *ng-if="!ds.students" padding>
+ <div *ng-if="!selectedRegisterSession.marks" padding>
     <h2>No students</h2>
  </div>
     
     
-  <ion-list *ng-if="ds.students">
-  <ion-item *ng-for="#m of ds.marks" >
+  <ion-list *ng-if="selectedRegisterSession.marks">
+  <ion-item *ng-for="#m of selectedRegisterSession.marks" >
 
     <br/>
     <ion-thumbnail item-left>
      <img [src]="m.student.thumbnail">
     </ion-thumbnail>
-    <h2>{{m.student.firstName}} {{m.student.surname}}</h2>
+    <h2>{{m.student.firstForename}} {{m.student.surname}}</h2>
     <h4>{{m.registerStudentID}}</h4>
     <p>Last Attended: {{m.student.lastAttended ? m.student.lastAttended : 'N/A'}}</p>
+     <div class="list list-inline">
      <ion-list radio-group  [(ng-model)]="m.markTypeID">
       <ion-radio *ng-for="#mark of markTypes"  value="{{mark.markTypeID}}">  
-                 {{mark.mark}} - {{mark.description}}                       
+                 {{mark.mark}} <br/> {{mark.description}}                       
           </ion-radio> 
       </ion-list>
-     
+     </div>
   </ion-item>
 
 </ion-list>
-<button *ng-if="ds.students" full (click)="save()">Save</button>
+<button *ng-if="selectedRegisterSession.marks" full (click)="save()">Save</button>
 
 </ion-content>
