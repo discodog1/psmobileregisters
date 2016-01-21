@@ -1,3 +1,0 @@
-# psmobileregisters
-mobile app
-xyz

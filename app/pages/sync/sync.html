@@ -1,0 +1,23 @@
+<ion-navbar *navbar>
+  <button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>Sync Registers</ion-title>
+</ion-navbar>
+
+<ion-content>
+
+<h3>Send data to the server</h3>
+
+Sessions:
+<ion-card>
+  <ion-card-header>
+   <h3> {{statusS}} </h3>
+  </ion-card-header>
+  <ion-card-content>
+   <p> {{detailsS}} </p>
+  </ion-card-content>
+</ion-card>
+
+<button full (click)="Sync()">Sync</button>
+</ion-content>

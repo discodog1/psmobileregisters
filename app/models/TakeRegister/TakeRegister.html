@@ -1,0 +1,68 @@
+ 
+<ion-navbar *navbar>
+  <button menuToggle>
+   <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>New Session</ion-title>
+</ion-navbar>
+
+
+    <ion-content class="padding TakeRegister">    
+          <h3>New Session</h3>
+<div *ngIf="selectedRegisterSession" padding>
+  <ion-card>
+  <ion-card-header>
+      <h2>{{selectedRegister.registerNo}}</h2>
+  </ion-card-header>
+  <ion-card-content>
+    <h4 >{{selectedRegister.title}}</h4>
+    <br/>
+    
+     <ion-input fixed-label>
+    <ion-label>Date</ion-label>
+    <input type="text" [(ngModel)]="selectedRegisterSession.date">
+  </ion-input>
+  
+   <ion-input fixed-label>
+    <ion-label>Start Time</ion-label>
+    <input type="text" [(ngModel)]="selectedRegisterSession.startTime">
+  </ion-input>
+  
+   <ion-input fixed-label>
+    <ion-label>End Time</ion-label>
+    <input type="text" [(ngModel)]="selectedRegisterSession.endTime">
+  </ion-input>
+  
+
+  </ion-card-content>
+</ion-card>
+
+  </div>
+ <div *ngIf="!selectedRegisterSession.marks" padding>
+    <h2>No students</h2>
+ </div>
+    
+    
+  <ion-list *ngIf="selectedRegisterSession.marks">
+  <ion-item *ngFor="#m of selectedRegisterSession.marks" >
+
+    <br/>
+    <ion-thumbnail item-left>
+     <img [src]="m.student.thumbnail">
+    </ion-thumbnail>
+    <h2>{{m.student.firstForename}} {{m.student.surname}}</h2>
+    <h4>{{m.registerStudentID}}</h4>
+    <p>Last Attended: {{m.student.lastAttended ? m.student.lastAttended : 'N/A'}}</p>
+     <div class="list list-inline">
+     <ion-list radio-group  [(ngModel)]="m.markTypeID">
+      <ion-radio *ngFor="#mark of markTypes"  value="{{mark.markTypeID}}">  
+                 {{mark.mark}} <br/> {{mark.description}}                       
+          </ion-radio> 
+      </ion-list>
+     </div>
+  </ion-item>
+
+</ion-list>
+<button *ngIf="selectedRegisterSession.marks" full (click)="save()">Save</button>
+
+</ion-content>
