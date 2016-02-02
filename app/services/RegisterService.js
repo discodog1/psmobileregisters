@@ -2,7 +2,7 @@
 
 import {Http,HTTP_PROVIDERS,Headers} from 'angular2/http'
 import {Injectable, Inject } from 'angular2/core';
-import {Register,RegisterStudent, Staff,Room,RegisterMark,RegisterSession,DataSet} from '../models/objects'
+import {Register,RegisterStudent, Staff,Room,RegisterMark,RegisterSession,DataSet,SystemSetting} from '../models/objects'
 
 
 
@@ -21,7 +21,7 @@ export class RegisterService {
   
 
   getRegisters() {
-   return this.http.get('http://localhost/psmobileregisters_backend/getregisterstoday.ashx', {headers: this.authHeader})
+   return this.http.get(localStorage.getItem('serviceUrl') + 'getregisterstoday.ashx', {headers: this.authHeader})
     .map((responseData) => {
       return responseData.json();
     })
@@ -41,7 +41,7 @@ export class RegisterService {
  
   
  getMarks() {
-   return this.http.get('http://localhost/psmobileregisters_backend/GetMarkTypes.ashx', {headers: this.authHeader})
+   return this.http.get(localStorage.getItem('serviceUrl') + 'GetMarkTypes.ashx', {headers: this.authHeader})
    .map((responseData) => {
      localStorage.setItem("MarkTypes",JSON.stringify(responseData.json()));
      return responseData.json()
@@ -109,5 +109,15 @@ loadDataSet(sess:RegisterSession) {
         return true;
     }
     
+    
+    getSystemSettings() {
+            
+        return this.http.get(localStorage.getItem('serviceUrl') + 'GetSystemSettings.ashx', {headers: this.authHeader})
+        .map((responseData) => {
+            localStorage.setItem("SystemSettings",JSON.stringify(responseData.json()));
+            return responseData.json()
+            
+        })
+    }
     }
     

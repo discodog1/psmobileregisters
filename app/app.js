@@ -9,8 +9,6 @@ import {AboutPage} from './pages/about/about'
 import {RegisterService} from './services/RegisterService'
 import {LoginPage} from './pages/login/login'
 import {JwtHelper} from 'angular2-jwt/angular2-jwt'
-
-
 @App({
   templateUrl: 'build/app.html',
   // Check out the config API docs for more info

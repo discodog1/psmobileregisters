@@ -3,14 +3,14 @@ import {Component} from 'angular2/core';
 
 import {RegisterSessionList} from '../RegisterSessionList/RegisterSessionList'
 import {RegisterService} from '../../services/RegisterService'
-import {Register} from '../objects'
+import {Register} from '../../models/objects'
 import {CanActivate} from 'angular2/router'
 import {tokenNotExpired} from 'angular2-jwt/angular2-jwt';
 
 @CanActivate(() => tokenNotExpired())
 @Page({
    selector: 'register-list', 
-   templateUrl:'build/models/RegisterList/RegisterList.html',
+   templateUrl:'build/pages/RegisterList/RegisterList.html',
    providers: [RegisterService]
    })
    
@@ -20,6 +20,7 @@ export class RegisterList {
 	constructor( public regService: RegisterService, app: IonicApp, nav: NavController, navParams: NavParams) { 
     this.nav = nav;
     
+   this.isBusy = false;
    
     //populate registers variable with data loaded from service
       if (localStorage.getItem("Registers")) {
@@ -50,7 +51,14 @@ export class RegisterList {
         this.registers = [];
         localStorage.removeItem("Registers");
         localStorage.removeItem("MyRegistersToday");
-        this.regService.getRegisters().subscribe(res=> this.registers = res);
-
+        this.isBusy=true;
+        this.regService.getRegisters().subscribe(res=> this.onComplete(res) );
+        
     };
+    
+    onComplete(data) {
+        this.registers = data;
+        this.isBusy=false;
+    }
+      
 }

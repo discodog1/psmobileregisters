@@ -4,14 +4,14 @@ import {NgClass} from 'angular2/common';
 
 import {TakeRegister} from '../TakeRegister/TakeRegister'
 import {RegisterService} from '../../services/RegisterService'
-import {Register,RegisterSession} from '../objects'
+import {Register,RegisterSession} from '../../models/objects'
 import {CanActivate} from 'angular2/router'
 import {tokenNotExpired} from 'angular2-jwt/angular2-jwt';
 
 @CanActivate(() => tokenNotExpired())
 @Page({
    selector: 'register-session-list', 
-   templateUrl:'build/models/RegisterSessionList/RegisterSessionList.html',
+   templateUrl:'build/pages/RegisterSessionList/RegisterSessionList.html',
     providers: [RegisterService]
    })
    

@@ -7,14 +7,21 @@
 // By default each design mode includes these shared imports.
 // App Shared Sass variables belong in app.variables.scss.
 
-@import "models/RegisterList/RegisterList";
-@import "models/TakeRegister/TakeRegister";
-
+@import "pages/RegisterList/RegisterList";
+@import "pages/TakeRegister/TakeRegister";
+@import "pages/RegisterSessionList/RegisterSessionList";
 @import "pages/about/about";
 @import "pages/help/help";
 @import "pages/home/home";
 @import "pages/logout/logout";
-@import "pages/my-registers/my-registers";
 @import "pages/preferences/preferences";
 @import "pages/register-details/register-details";
 @import "pages/sync/sync";
+@import "pages/login/login";
+@import "pages/login/LoginModal/LoginModal";
+
+@media screen and (max-width: 767px) {
+    .hidden-xs {
+        display:none;
+    }
+}

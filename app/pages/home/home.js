@@ -1,5 +1,5 @@
 import {IonicApp, Page, NavController, NavParams} from 'ionic/ionic';
-import {RegisterList} from '../../models/RegisterList/RegisterList'
+import {RegisterList} from '../../pages/RegisterList/RegisterList'
 import {CanActivate} from 'angular2/router'
 import {tokenNotExpired} from 'angular2-jwt/angular2-jwt';
 

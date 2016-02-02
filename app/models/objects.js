@@ -94,3 +94,13 @@ export class MarkType {
          public register:Register
       ){}
   }
+  
+      export class SystemSetting {
+          constructor(
+             public systemSettingID: number,
+             public code: string,
+             public description: string, 
+             public value: string
+          ){}
+      }
+  

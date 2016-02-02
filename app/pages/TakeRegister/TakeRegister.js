@@ -1,6 +1,6 @@
 /* global console */
 import {IonicApp,Page, NavController, NavParams} from 'ionic/ionic';
-import {Register,RegisterStudent,RegisterMark,RegisterSession,MarkType,DataSet} from '../objects';
+import {Register,RegisterStudent,RegisterMark,RegisterSession,MarkType,DataSet} from '../../models/objects';
 import {RegisterService} from '../../services/RegisterService'
 import {HomePage} from '../../pages/home/home';
 import {CanActivate} from 'angular2/router'
@@ -11,7 +11,7 @@ import {ngModel,ngIf,ngFor} from 'angular2/common'
 
 @Page({
    selector: 'take-register', 
-   templateUrl:'build/models/TakeRegister/TakeRegister.html',
+   templateUrl:'build/pages/TakeRegister/TakeRegister.html',
    providers: [RegisterService],
    bindings: [RegisterService]
    })

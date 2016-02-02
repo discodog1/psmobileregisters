@@ -34,7 +34,7 @@ export class SyncPage {
     
       Sync() {
           var data = localStorage.getItem("MyRegistersToday");
-          var urlS = 'http://localhost/PSMobileRegisters_Backend/HandleSessions.ashx';
+          var urlS = localStorage.getItem('serviceUrl') + 'HandleSessions.ashx';
      
           
           if (data.length > 2) {
