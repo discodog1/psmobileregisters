@@ -21,7 +21,7 @@ export class RegisterService {
   
 
   getRegisters() {
-   return this.http.get(localStorage.getItem('serviceUrl') + 'getregisterstoday.ashx', {headers: this.authHeader})
+   return this.http.get(localStorage.getItem('serviceUrl') + 'getregisterstoday.ashx?DeviceID=' + localStorage.getItem('deviceID'), {headers: this.authHeader})
     .map((responseData) => {
       return responseData.json();
     })
@@ -119,5 +119,17 @@ loadDataSet(sess:RegisterSession) {
             
         })
     }
+    
+    Sync() {         
+        var data = localStorage.getItem("MyRegistersToday");     
+        if (!data) {
+            data=[];
+        }             
+          if (data.length > 2) {             
+              return this.http.post(localStorage.getItem('serviceUrl') + 'HandleSessions.ashx?DeviceID=' + localStorage.getItem('deviceID'),data, {headers: this.authHeader})  
+          }                                  
+      }
+      
+    
     }
     

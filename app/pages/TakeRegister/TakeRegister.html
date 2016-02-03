@@ -8,7 +8,7 @@
 
 
     <ion-content class="padding TakeRegister">    
-          <h3>New Session</h3>
+       
 <div *ngIf="selectedRegisterSession" padding>
     
   
@@ -20,26 +20,26 @@
     <h2 >{{selectedRegister.title}}</h2>
     <br/>
     
-     <ion-input fixed-label>
+    <ion-item fixed-label>
     <ion-label>Date</ion-label>
-    <input type="text" [(ngModel)]="selectedRegisterSession.date">
-  </ion-input>
+    <ion-input type="text" [(ngModel)]="selectedRegisterSession.date"></ion-input>
+  </ion-item>
   
-   <ion-input fixed-label>
+   <ion-item fixed-label>
     <ion-label>Start Time</ion-label>
-    <input type="text" [(ngModel)]="selectedRegisterSession.startTime">
-  </ion-input>
+    <ion-input type="text" [(ngModel)]="selectedRegisterSession.startTime"></ion-input>
+  </ion-item>
   
-   <ion-input fixed-label>
+   <ion-item fixed-label>
     <ion-label>End Time</ion-label>
-    <input type="text" [(ngModel)]="selectedRegisterSession.endTime">
-  </ion-input>
+    <ion-input type="text" [(ngModel)]="selectedRegisterSession.endTime"></ion-input>
+  </ion-item>
   
 
   </ion-card-content>
 </ion-card>
 
-            
+  <!--          
   <ion-card>
   <ion-card-header>
       <h2  class="card-title">Rooms</h2><hr/>
@@ -66,7 +66,7 @@
   
   </ion-card-content>
 </ion-card>
-    
+    -->
 
 
   </div>
@@ -74,22 +74,25 @@
     <h2>No students</h2>
  </div>
     
-    
+
   <ion-list *ngIf="selectedRegisterSession.marks">
   <ion-item *ngFor="#m of selectedRegisterSession.marks" >
 
     <ion-thumbnail item-left>
      <img [src]="m.student.thumbnail">
     </ion-thumbnail>
-    <h2>{{m.student.firstForename}} {{m.student.surname}}</h2>
+    <ion-label><h2>{{m.student.firstForename}} {{m.student.surname}}</h2>
     <p>Last Attended: {{m.student.lastAttended ? m.student.lastAttended : 'N/A'}}</p>
-     <div class="list list-inline">
-     <ion-list no-lines radio-group  [(ngModel)]="m.markTypeID">
-      <ion-radio *ngFor="#mark of markTypes"  value="{{mark.markTypeID}}">  
-                 {{mark.mark}} <br/> <div class="hidden-xs">{{mark.description}}</div>                       
-          </ion-radio> 
+     <div >
+     <ion-list no-lines radio-group  [(ngModel)]="m.markTypeID" >
+      <ion-item *ngFor="#mark of markTypes">
+          <ion-label class="radioLabel">{{mark.mark}} 
+              <br/> <div >{{mark.description}}</div>  
+                   </ion-label>
+      <ion-radio   value="{{mark.markTypeID}}">   </ion-radio> 
+          </ion-item>
       </ion-list>
-     </div>
+     </div></ion-label>
   </ion-item>
 
 </ion-list>

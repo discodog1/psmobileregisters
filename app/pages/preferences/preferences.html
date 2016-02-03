@@ -6,25 +6,33 @@
 </ion-navbar>
 
 <ion-content>
-    <h3>Application Settings</h3>
+    <h3>Application Settings - get from the server</h3>
     <ion-list inset no-lines >
 
-  <ion-input *ngFor="#s of systemsettings">
+  <ion-item *ngFor="#s of systemsettings">
     <ion-label>{{s.description}}</ion-label>
-    <input type="text" [(ngModel)]="s.value">
-  </ion-input>
+    <ion-input type="text" [(ngModel)]="s.value"></ion-input>
+  </ion-item>
 
 </ion-list>
 
-<h3>User Settings</h3>
+<h3>User Settings - (put these in localStorage)</h3>
+<ion-item>
+    <ion-label>Show X</ion-label>
  <ion-toggle checked="true">
-    Show X
+    
   </ion-toggle>
+  </ion-item>
+  <ion-item>
+       <ion-label>Show Y</ion-label>
  <ion-toggle >
-    Show Y
-  </ion-toggle>
-   <ion-toggle >
-    Do Z
-  </ion-toggle>
   
+  </ion-toggle>
+  </ion-item>
+  <ion-item>
+       <ion-label>Do Z</ion-label>
+   <ion-toggle >
+   
+  </ion-toggle>
+  </ion-item>
 </ion-content>

@@ -1,9 +1,9 @@
 /* global localStorage */
 import {IonicApp, Page, NavController, NavParams} from 'ionic/ionic';
-import {Http,HTTP_PROVIDERS, Headers} from 'angular2/http'
 import {AuthHttp,tokenNotExpired} from 'angular2-jwt/angular2-jwt'
 import {CanActivate} from 'angular2/router'
 import {RegisterService} from '../../services/RegisterService'
+import {LoginPage} from '../../pages/login/login'
 
 @Page({
   templateUrl: 'build/pages/sync/sync.html',
@@ -13,37 +13,38 @@ import {RegisterService} from '../../services/RegisterService'
 @CanActivate(() => tokenNotExpired())
 
 export class SyncPage {
-    constructor(public regService: RegisterService,public http: Http, app: IonicApp, nav: NavController, navParams: NavParams) { 
+    constructor(public regService: RegisterService, app: IonicApp, nav: NavController, navParams: NavParams) { 
     this.nav = nav;
     this.app = app;
+    
+    //routing to login not working (02/02/16)
+    if(!tokenNotExpired()) {
+         this.nav.push(LoginPage);
+    };
     
     this.statusS="status";
     this.detailsS="details";
     
     this.service = regService;
-    
-     this.jwt = localStorage.getItem('id_token');
-     
-      this.authHeader = new Headers();
-        if(this.jwt) {
-            this.authHeader.append('Authorization', 'Bearer ' + this.jwt);      
-        }
+   
  };
- 
-    
-    
+       
       Sync() {
           var data = localStorage.getItem("MyRegistersToday");
-          var urlS = localStorage.getItem('serviceUrl') + 'HandleSessions.ashx';
-     
-          
+         
+         //probably won't happen but cropped up when manually messing with localStorage
+         if (!data) {
+             data=[];
+         }
+             
           if (data.length > 2) {
               this.statusS="Processing";
-              this.detailsS = "Posting to:" + urlS + "\n"
-              this.http.post(urlS,data, {headers: this.authHeader})
+              this.detailsS = "Posting to server"
+              
+              this.service.Sync()            
               .subscribe(
-                  res=>this.ParseSessionsResult(res) + "\n",
-                  err=>this.detailsS=err + "\n"
+                  res=>this.ParseSessionsResult(res),
+                  err=>this.detailsS=err 
                   );
               
           }

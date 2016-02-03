@@ -33,13 +33,14 @@ export class LoginPage {
       var application = "http://psmobileregisters.com";
       var issuer = "compasscc";
       var symkey = "super duper secret with some more on top";
-      
+      var deviceid = localStorage.getItem('deviceID');
+      var code = '1234';
     event.preventDefault();
     
     
     
     var headers = new Headers();
-    var creds = '{"username":"' + username + '","password":"' + password + '","application":"' + application + '","issuer":"' + issuer + '","symkey":"' + symkey + '"}';
+    var creds = '{"username":"' + username + '","password":"' + password + '","application":"' + application + '","issuer":"' + issuer + '","symkey":"' + symkey  + '","deviceid":"' + deviceid + '","code":"' + code + '"}';
     headers.append('Content-Type', 'application/x-www-form-urlencoded');
 
   this.http.post(this.serviceUrl + 'login.ashx', creds, {

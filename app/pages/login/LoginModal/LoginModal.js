@@ -26,10 +26,10 @@ export class LoginModal {
     
     tryConnect(url) {
            
-        return this.http.get(url + 'GetSystemSettings.ashx')
+        return this.http.get(url + 'GenerateDeviceID.ashx?Code=1234')
         .map((responseData) => {
-            if (responseData.status == '200') {
-                return responseData;
+            if (responseData) {
+                localStorage.setItem('deviceID',responseData._body);
             }
             else {
                 return false;
@@ -43,16 +43,25 @@ export class LoginModal {
     }
     success(res,field) {
         
-        this.status = res.status;
-        this.response=res._body;
+        this.status = '200';
+        //this.response=res._body;
         this.confirmedUrl=field.value;
+      
     }
     
     fail(err,field) {
         console.log('Failed',err)
         this.confirmedUrl='';
-        this.status = err.status;
+        this.status = '404';
         this.response= err._body;
     }
     
-  }
+//     generateDeviceID() {
+//         this.http.get(this.confirmedUrl + 'GenerateDeviceID.ashx?Code=1234')
+//         .map((responseData) => {           
+//                 localStorage.setItem('deviceID',responseData._body);
+           
+//     }).subscribe(res=> console.log(res),err=> console.log(err)); 
+    
+//   }
+}

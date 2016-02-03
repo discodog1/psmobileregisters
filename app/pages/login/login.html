@@ -1,17 +1,17 @@
 
 <ion-content>
-    <div>
+    
   <h1>Login</h1>
   <form role="form" (submit)="login($event, username.value, password.value)">
-  <div>
-    <label for="username">Username</label>
-    <input type="text" #username id="username" placeholder="Username">
-  </div>
-  <div>
-    <label for="password">Password</label>
-    <input type="password" #password  id="password" placeholder="Password">
-  </div>
+  <ion-item>
+    <ion-label for="username">Username</ion-label>
+    <ion-input type="text" #username id="username" placeholder="Username"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label for="password">Password</ion-label>
+    <ion-input type="password" #password  id="password" placeholder="Password"></ion-input>
+  </ion-item>
   <button type="submit" >Submit</button>
 </form>
-</div>
+
 </ion-content>

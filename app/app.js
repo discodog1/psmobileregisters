@@ -1,4 +1,4 @@
-import {App, IonicApp, Platform, Config,Storage} from 'ionic/ionic';
+import {App, IonicApp, Platform, Config} from 'ionic/ionic';
 import 'rxjs/Rx' 
 import {HomePage} from './pages/home/home'
 import {LogOutPage} from './pages/logout/logout'
@@ -19,7 +19,7 @@ class MyApp {
   constructor(app: IonicApp, platform: Platform) {
     this.app = app;
     this.platform = platform;
-
+    
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -28,9 +28,9 @@ class MyApp {
 
           { title: 'Home',  component:HomePage,  icon: 'home'},
           { title: 'Sync', component:SyncPage, icon: 'sync'},
-          { title: 'Preferences', component: PreferencesPage, icon: 'gear'},
+          { title: 'Preferences', component: PreferencesPage, icon: 'cog'},
           { title: 'Help', component: HelpPage, icon: 'help-buoy'},
-          { title: 'About', component: AboutPage, icon: 'ion-information-circled'},
+          { title: 'About', component: AboutPage, icon: 'information-circle'},
           { title: 'Log Out', component: LogOutPage, icon: 'log-out'}
         ];
         

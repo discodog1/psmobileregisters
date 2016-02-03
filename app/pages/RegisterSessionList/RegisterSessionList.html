@@ -11,7 +11,7 @@
 <button [ngClass]="{disabled: sess.registerTaken}"   ion-item *ngFor="#sess of register.sessions" (click)="selectSession($event,sess)">
      <ion-card>
        <ion-card-header [ngClass]="{marked: sess.registerTaken}">
-         <h2>{{sess.date}}</h2>
+         <h2>{{sess.date}} </h2>
          </ion-card-header>
          <ion-card-content [ngClass]="{marked: sess.registerTaken}">
            <p>{{sess.startTime}} - {{sess.endTime}}</p>              
