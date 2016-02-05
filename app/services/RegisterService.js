@@ -17,6 +17,13 @@ export class RegisterService {
         if(this.jwt) {
             this.authHeader.append('Authorization', 'Bearer ' + this.jwt);      
         }
+        
+        //stats
+        this.taken=0;
+        this.today=0;
+        this.missed=0;
+        
+        this.getRegisterStats();
   }
   
 
@@ -131,5 +138,50 @@ loadDataSet(sess:RegisterSession) {
       }
       
     
+    getRegisterStats() {
+        
+        let result:Array<Register> = [];
+        
+        //get original data
+        result = JSON.parse(localStorage.getItem("MyRegistersToday"));
+        
+             
+        if (result) {
+            for (var i=0;i < result.length;i++) {
+                let result2:Array<RegisterSession> = [];
+                result2=result[i].sessions;
+                 if (result2) {
+                     for (var i2=0;i2 < result2.length;i2++) {
+                         if (result[i].sessions[i2].registerTaken) {
+                             this.taken ++;
+                         }
+                         else {
+                             console.log('date: ' + result[i].sessions[i2].date + ', start: ' + result[i].sessions[i2].startTime)
+                             var t = new Date(result[i].sessions[i2].startTime);
+                             var str = result[i].sessions[i2].date;
+                             var parts = str.split("/");
+                             var d = new Date(parseInt(parts[2], 10),
+                                            parseInt(parts[1], 10) - 1,
+                                            parseInt(parts[0], 10));
+                             var dt = d.setHours(t.getHours());
+                             //console.log(dt);
+                             var now = new Date(); 
+                             if (dt < now) {
+                                this.missed++;
+                             }
+                             var g = new Date(dt);
+                             console.log('g:',g)
+                             g=g.setHours(0,0,0,0);
+                             now=now.setHours(0,0,0,0);
+                             if(g == now)
+                                {                                 
+                                    this.today++;
+                                }
+                         }
+                     }
+                 }
+            }
+        };
+    }
     }
     

@@ -1,12 +1,12 @@
 /* global console */
-import {IonicApp,Page, NavController, NavParams} from 'ionic/ionic';
+import {IonicApp,Page, NavController,Modal, NavParams} from 'ionic/ionic';
 import {Register,RegisterStudent,RegisterMark,RegisterSession,MarkType,DataSet} from '../../models/objects';
 import {RegisterService} from '../../services/RegisterService'
 import {HomePage} from '../../pages/home/home';
 import {CanActivate} from 'angular2/router'
 import {tokenNotExpired} from 'angular2-jwt/angular2-jwt';
 import {ngModel,ngIf,ngFor} from 'angular2/common'
-
+import {TakeRegisterModal} from './TakeRegisterModal/TakeRegisterModal'
 @CanActivate(() => tokenNotExpired())
 
 @Page({
@@ -41,11 +41,26 @@ export class TakeRegister {
   
   save() {
     if (this.service.save(this.selectedRegisterSession)) {
-        //ideally this shouldn't go on the stack, as the back button is enabled.
-        //need to work out how to go direct to home and clear nav stack
-        this.nav.push(HomePage);
+        this.showModal();     
   }
  
 }
 
+showModal() {
+    let modal = Modal.create(TakeRegisterModal);
+    modal.onDismiss(data => {
+     if (data==1) {
+         //return to schedules list
+         console.log('take another register',this.nav);
+         this.nav.pop();
+         
+     }
+     else {
+         //return home
+         console.log('return home page');
+         this.nav.push(HomePage);
+     }
+   });
+    this.nav.present(modal);
+  }
 }

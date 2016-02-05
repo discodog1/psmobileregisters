@@ -12,7 +12,8 @@ import {RegisterService} from '../../services/RegisterService'
 export class PreferencesPage {
     
     constructor(public regService: RegisterService) {
-               
+           
+              
          if (localStorage.getItem("SystemSettings")) {
          this.systemsettings = JSON.parse(localStorage.getItem("SystemSettings"));
       }
@@ -21,5 +22,9 @@ export class PreferencesPage {
       }            
     }
     
+              
+        changeColor(color) {
+            localStorage.setItem('myBG',color);
+        }
     
 }

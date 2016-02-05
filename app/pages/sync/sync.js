@@ -26,7 +26,6 @@ export class SyncPage {
     this.detailsS="details";
     
     this.service = regService;
-   
  };
        
       Sync() {
