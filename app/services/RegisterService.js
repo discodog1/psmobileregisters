@@ -156,8 +156,8 @@ loadDataSet(sess:RegisterSession) {
                              this.taken ++;
                          }
                          else {
-                             console.log('date: ' + result[i].sessions[i2].date + ', start: ' + result[i].sessions[i2].startTime)
-                             var t = new Date(result[i].sessions[i2].startTime);
+                             //console.log('date: ' + result[i].sessions[i2].date + ', start: ' + result[i].sessions[i2].startTime)
+                             var t = new Date(result[i].sessions[i2].endTime);
                              var str = result[i].sessions[i2].date;
                              var parts = str.split("/");
                              var d = new Date(parseInt(parts[2], 10),
@@ -170,7 +170,7 @@ loadDataSet(sess:RegisterSession) {
                                 this.missed++;
                              }
                              var g = new Date(dt);
-                             console.log('g:',g)
+                             //console.log('g:',g)
                              g=g.setHours(0,0,0,0);
                              now=now.setHours(0,0,0,0);
                              if(g == now)

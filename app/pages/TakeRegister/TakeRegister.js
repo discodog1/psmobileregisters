@@ -19,7 +19,7 @@ import {TakeRegisterModal} from './TakeRegisterModal/TakeRegisterModal'
 export class TakeRegister {
 
 	constructor(public regService: RegisterService,app: IonicApp, nav: NavController, navParams: NavParams) { 
-   
+    this.app = app;
     this.nav = nav;
        
      //service will be used to retrieve register data
@@ -52,13 +52,16 @@ showModal() {
      if (data==1) {
          //return to schedules list
          console.log('take another register',this.nav);
-         this.nav.pop();
+         let nav = this.app.getComponent('nav');
+         nav.pop();
          
      }
      else {
          //return home
          console.log('return home page');
-         this.nav.push(HomePage);
+         let nav = this.app.getComponent('nav');
+         nav.setRoot(HomePage.component);
+
      }
    });
     this.nav.present(modal);
