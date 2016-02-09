@@ -25,7 +25,7 @@
   </button>
 </ion-list>
 <button class="button button-positive" (click)="refreshRegisters($event)">Refresh from Server</button>
-<ion-card>
+<ion-card *ngIf="statusS !== 'Idle'">
   <ion-card-header>
    <h3> {{statusS}} </h3>
   </ion-card-header>

@@ -104,3 +104,9 @@ export class MarkType {
           ){}
       }
   
+
+export class BrokenRules {
+    constructor(
+        public message: string
+    ){}
+}

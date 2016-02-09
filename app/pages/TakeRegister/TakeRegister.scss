@@ -25,4 +25,8 @@ ion-card {
    display: inline-block;
    height:300px;
         }
+        
+        .noclick {
+            pointer-events: none;
+        }
 }

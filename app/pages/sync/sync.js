@@ -78,6 +78,11 @@ export class SyncPage {
          
           localStorage.removeItem("Registers"); 
           localStorage.removeItem("MyRegistersToday"); 
-          this.service.getRegisters().subscribe(res=> this.registers = res); //reloads cache
+          this.service.getRegisters().subscribe(res=> this.GetUpdatedList(res)); //reloads cache
+      }
+      
+      GetUpdatedList(res) {
+          this.registers = res;
+          this.detailsS="Retrieved Updated List";
       }
 }

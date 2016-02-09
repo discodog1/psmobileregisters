@@ -39,7 +39,7 @@
   </ion-card-content>
 </ion-card>
 
-  <!--          
+          
   <ion-card>
   <ion-card-header>
       <h2  class="card-title">Rooms</h2><hr/>
@@ -66,7 +66,7 @@
   
   </ion-card-content>
 </ion-card>
-    -->
+    
 
 
   </div>
@@ -96,6 +96,40 @@
   </ion-item>
 
 </ion-list>
+
+
+<div *ngIf="rules.length>0" padding>
+    
+   
+
+     <ion-list>
+  <ion-list-header>
+     <div class="button button-danger noclick">
+       
+        The following validation warnings have been generated:
+    </div>
+  </ion-list-header>
+  
+    <ion-item *ngFor="#br of rules"> 
+        <ion-avatar item-left>
+         <ion-icon name="alert" class=" icon-danger"></ion-icon>
+        </ion-avatar>    
+        
+        <ion-label>{{br.message}}</ion-label>
+        
+    </ion-item>
+    </ion-list>
+ </div>
+ 
+ <ion-row>
+     <ion-col width-50>
+ <ion-item>
+    <ion-label>Set Form Valid</ion-label>
+    <ion-toggle [(ngModel)]="togValid" ></ion-toggle>
+  </ion-item>
+  </ion-col>
+  </ion-row>
 <button *ngIf="selectedRegisterSession.marks" full (click)="save()">Save</button>
 
+ 
 </ion-content>
