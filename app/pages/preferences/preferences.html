@@ -1,0 +1,56 @@
+<ion-navbar *navbar>
+  <button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>Preferences</ion-title>
+</ion-navbar>
+
+<ion-content>
+    <div [ngStyle]="{'background-color': myColor}">
+    <h3>Application Settings - get from the server</h3>
+    <ion-list inset no-lines >
+
+  <ion-item *ngFor="#s of systemsettings">
+    <ion-label>{{s.description}}</ion-label>
+    <ion-input type="text" [(ngModel)]="s.value"></ion-input>
+  </ion-item>
+
+</ion-list>
+
+<h3>User Settings - (put these in localStorage)</h3>
+<ion-item>
+    <ion-label>Show X</ion-label>
+ <ion-toggle checked="true">
+    
+  </ion-toggle>
+  </ion-item>
+  <ion-item>
+       <ion-label>Show Y</ion-label>
+ <ion-toggle >
+  
+  </ion-toggle>
+  </ion-item>
+  <ion-item>
+       <ion-label>Do Z</ion-label>
+   <ion-toggle >
+   
+  </ion-toggle>
+  </ion-item>
+  </div>
+    <ion-item (click)="changeColor('red')">
+        <ion-label>Red</ion-label>
+  <ion-input type="button" value="Red" ></ion-input>
+   </ion-item>
+      <ion-item (click)="changeColor('green')">
+        <ion-label>Green</ion-label>
+  <ion-input type="button" value="Green" ></ion-input>
+     </ion-item>
+     <ion-item (click)="changeColor('blue')">
+        <ion-label>Blue</ion-label>
+  <ion-input type="button" value="Blue" ></ion-input>
+     </ion-item>
+     <ion-item (click)="changeColor('yellow')">
+        <ion-label>Yellow</ion-label>
+  <ion-input type="button" value="Yellow" ></ion-input>
+     </ion-item>
+</ion-content>

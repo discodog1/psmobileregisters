@@ -1,0 +1,67 @@
+﻿
+
+<ion-navbar *navbar>
+  <button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>Home Page</ion-title>
+</ion-navbar>
+
+
+<ion-content padding class="home">
+<ion-row>
+
+  <ion-col >  <h3 class="center">ProSolution Registers</h3></ion-col>
+
+ </ion-row>
+ <ion-row center>
+   
+  <ion-col> <img src="build/img/ps.png"></ion-col>
+
+</ion-row>
+<ion-row>
+  
+  <ion-col>
+    <button full (click)="navigateToMyRegisters()">View my Registers</button>
+    </ion-col>
+
+ </ion-row>
+ 
+ <ion-row>
+     <ion-col>
+         <rd-widget>
+      <rd-widget-body>
+        <div class="widget-icon orange pull-left">
+          <i class="fa fa-users"></i>
+        </div>
+        <div class="title">{{today}}</div>
+        <div class="comment">Registers Today</div>
+      </rd-widget-body>
+    </rd-widget>
+         </ion-col>
+         <ion-col>
+             <rd-widget>
+      <rd-widget-body>
+        <div class="widget-icon green pull-left">
+          <i class="fa fa-check"></i>
+        </div>
+        <div class="title">{{taken}}</div>
+        <div class="comment">Ready to Upload</div>
+      </rd-widget-body>
+    </rd-widget>
+         </ion-col>
+         <ion-col>
+             <rd-widget>
+      <rd-widget-body>
+        <div class="widget-icon red pull-left">
+          <i class="fa fa-exclamation"></i>
+        </div>
+        <div class="title">{{missed}}</div>
+        <div class="comment">Missed Registers</div>
+      </rd-widget-body>
+    </rd-widget>
+         </ion-col>
+        
+     </ion-row>
+ 
+</ion-content>

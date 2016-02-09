@@ -1,0 +1,12 @@
+  <ion-content padding class="LoginModal">
+      <h4>Location of Backend Web Service</h4>
+    
+        <ion-item stacked-label>
+            <ion-label>In order to initailise the application, please provide the url to the service providing data to the application.</ion-label>
+            <ion-input type="url" #url ></ion-input>
+        </ion-item>
+      
+      <button full (click)="testConnection($event,url)" [ngClass]="{win: status=='200', lose: status=='404'}">Test Connectivity</button>
+      <button full [disabled]="status !='200'" (click)="dismiss()">Continue</button>
+      <ion-label *ngIf="status=='404'"> {{response}}</ion-label>
+      </ion-content>

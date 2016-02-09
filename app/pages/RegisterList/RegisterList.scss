@@ -1,0 +1,16 @@
+.RegistersList {   
+    ion-card { 
+	width:100%;
+}
+.disabled {
+    //pointer-events: none;   
+}
+.marked, .marked > p {
+     color: green;
+}
+.disabled .item-inner {
+    opacity: 0.5;
+}
+
+
+}

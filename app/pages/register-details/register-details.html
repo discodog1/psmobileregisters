@@ -1,0 +1,18 @@
+﻿
+<ion-navbar *navbar>
+  <button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>My Registers</ion-title>
+</ion-navbar>
+
+<ion-view view-title="Register Details">
+    <ion-content class="padding register-details">
+        <ion-refresher on-refresh="refresh(true)" spinner="android"></ion-refresher>
+        <ion-list>
+            <ion-item item="item">
+                Registers List
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,36 @@
+
+<ion-navbar *navbar>
+  <button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>My Registers</ion-title>
+</ion-navbar>
+
+<ion-content padding class="RegistersList" >
+    <ion-refresher (starting)="doStarting()"
+                 (refresh)="refreshRegisters($event, refresher)"
+                 (pulling)="doPulling($event, amt)">
+  </ion-refresher>
+  <ion-list no-lines>
+<button class="item" ion-item *ngFor="#reg of registers" (click)="selectRegister($event,reg)">
+     <ion-card>
+       <ion-card-header>
+         <h2>{{reg.registerNo}}</h2>
+         </ion-card-header>
+         <ion-card-content>
+           <p>{{reg.title}}</p>    
+         
+           </ion-card-content>
+      </ion-card>
+  </button>
+</ion-list>
+<button class="button button-positive" (click)="refreshRegisters($event)">Refresh from Server</button>
+<ion-card *ngIf="statusS !== 'Idle'">
+  <ion-card-header>
+   <h3> {{statusS}} </h3>
+  </ion-card-header>
+  <ion-card-content>
+   <p> {{detailsS}} </p>
+  </ion-card-content>
+</ion-card>
+</ion-content>

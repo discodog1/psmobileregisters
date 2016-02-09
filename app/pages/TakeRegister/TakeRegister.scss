@@ -1,0 +1,32 @@
+
+.TakeRegister {  
+    
+  
+.item-radio {
+    //this inlines the marks and responds to changes in resolution
+    width: auto;
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    float: left;
+    //end
+    
+    
+}
+
+ion-content {
+    background-color:rgb(244, 244, 247)
+}
+
+ion-card {
+    text-align: center;
+    width:30%;
+    min-width:300px;
+   display: inline-block;
+   height:300px;
+        }
+        
+        .noclick {
+            pointer-events: none;
+        }
+}
