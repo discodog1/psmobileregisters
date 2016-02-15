@@ -68,36 +68,36 @@
 </ion-card>
     
 
-
   </div>
  <div *ngIf="!selectedRegisterSession.marks" padding>
     <h2>No students</h2>
  </div>
     
 
-  <ion-list *ngIf="selectedRegisterSession.marks">
-  <ion-item *ngFor="#m of selectedRegisterSession.marks" >
+  <div *ngIf="selectedRegisterSession.marks">
+ 
+<img class="avatar center" [src]="selectedRegisterMark.student.thumbnail">
+    <ion-item>
+            
+            <ion-label>
+                <h2>{{selectedRegisterMark.student.firstForename}} {{selectedRegisterMark.student.surname}}</h2>
+    <p>Last Attended: {{selectedRegisterMark.student.lastAttended ? selectedRegisterMark.student.lastAttended : 'N/A'}}</p>
+     </ion-label>          
+    </ion-item>
 
-    <ion-thumbnail item-left>
-     <img [src]="m.student.thumbnail">
-    </ion-thumbnail>
-    <ion-label><h2>{{m.student.firstForename}} {{m.student.surname}}</h2>
-    <p>Last Attended: {{m.student.lastAttended ? m.student.lastAttended : 'N/A'}}</p>
-     <div >
-     <ion-list no-lines radio-group  [(ngModel)]="m.markTypeID" >
-      <ion-item *ngFor="#mark of markTypes">
-          <ion-label class="radioLabel">{{mark.mark}} 
+
+
+     <ion-list no-lines radio-group   >
+      <ion-item *ngFor="#mark of markTypes"  >
+          <ion-label  class="radioLabel">{{mark.mark}} 
               <br/> <div >{{mark.description}}</div>  
                    </ion-label>
-      <ion-radio   value="{{mark.markTypeID}}">   </ion-radio> 
+      <ion-radio (click)="clickmark($event,mark)"  value="{{mark.markTypeID}}">   </ion-radio> 
           </ion-item>
       </ion-list>
-     </div></ion-label>
-  </ion-item>
-
-</ion-list>
 
 
+</div>
 <div *ngIf="rules.length>0" padding>
     
    

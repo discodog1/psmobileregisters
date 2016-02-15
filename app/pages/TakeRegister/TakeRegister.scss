@@ -13,7 +13,15 @@
     
     
 }
+.avatar {
+    height:120px;
+    width:160px; 
+}
 
+.center {
+    display: flex;
+    margin:auto;
+}
 ion-content {
     background-color:rgb(244, 244, 247)
 }
