@@ -27,27 +27,25 @@ togValid:boolean;
 markTypes:MarkType[];
 currentIndex:number;
 existingmark:number;
-
-
+selectedRegisterMarkAsString:string;
+selectedRegister: Register;
 ngOnInit() {
     
     if (localStorage.getItem("MarkTypes")) {
-         this.markTypes = JSON.parse(localStorage.getItem("MarkTypes"));
+        this.setupMarkTypes(JSON.parse(localStorage.getItem("MarkTypes")));
       }
       else {
-    this.regService.getMarks().subscribe(res => this.markTypes = res);
+    this.regService.getMarks().subscribe(res => this.setupMarkTypes(res));
       }
 
-    if (this.selectedRegisterSession) {
-        this.currentIndex=0;
-        this.selectedRegisterMark = this.selectedRegisterSession.marks[this.currentIndex];
-    }
+    
 }
 
 
 	constructor(private regService: RegisterService,app: IonicApp, nav: NavController, navParams: NavParams) { 
     this.app = app;
     this.nav = nav;
+    this.selectedRegister = navParams.get('register'); 
     this.selectedRegisterSession = navParams.get('session');    
   
     //failed validation rules
@@ -55,6 +53,17 @@ ngOnInit() {
     this.togValid = false;
       
   };
+  
+  
+  setupMarkTypes(res) {
+      this.markTypes = res;
+      
+      if (this.selectedRegisterSession) {
+        this.currentIndex=0;
+        this.selectedRegisterMark = this.selectedRegisterSession.marks[this.currentIndex];
+        this.selectedRegisterMarkAsString = String(this.selectedRegisterMark.markTypeID);
+    }
+  }
   
   save() {
       if (this.validatePage()) {
@@ -104,26 +113,19 @@ showModal() {
     this.nav.present(modal);
   }
   
-  clickmark(event,mark:MarkType) {
+  updateMark(event,mark:MarkType,slides) {
    event.preventDefault();
-   console.log('current mark:',this.selectedRegisterMark);
-   this.selectedRegisterMark.markTypeID = mark.markTypeID;
-   console.log('new mark:',this.selectedRegisterMark);
-   if (this.currentIndex == this.selectedRegisterSession.marks.length-1) {
-       this.currentIndex=0
-   }
-   else
-   {
-       this.currentIndex++
-   }
-   this.existingmark = this.selectedRegisterSession.marks[this.currentIndex].markTypeID;
-   console.log("next student's mark is:",this.existingmark);
-   this.selectedRegisterMark =  this.selectedRegisterSession.marks[this.currentIndex]; //go to next student
-   console.log('moved to student:',this.selectedRegisterMark);
+   
+   this.selectedRegisterSession.marks[this.currentIndex].markTypeID = Number(mark.markTypeID); //set mark to selected mark
+
+  slides.next(); //go to next student, raises onSlideChanged
 }
 
-onSlideChanged(event,m:RegisterMark) {
-
+onSlideChanged(slides) {
+    //use selectedRegisterMark to track current mark type ID to highlight
+    this.currentIndex = slides.activeIndex;
+    this.selectedRegisterMark = this.selectedRegisterSession.marks[this.currentIndex];
+    this.selectedRegisterMarkAsString = String(this.selectedRegisterMark.markTypeID);
 }
 
 

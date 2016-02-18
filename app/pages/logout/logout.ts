@@ -6,7 +6,7 @@ import {OnInit} from 'angular2/core'
   templateUrl: 'build/pages/logout/logout.html'
 })
 
-export class LogOutPage implements OnInIt {
+export class LogOutPage implements OnInit {
     
     ngOnInit() {
          if (localStorage.getItem('id_token')) {

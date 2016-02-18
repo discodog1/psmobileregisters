@@ -74,34 +74,36 @@
  </div>
     
 
-  <div *ngIf="selectedRegisterSession.marks">
- 
-<img class="avatar center" [src]="selectedRegisterMark.student.thumbnail">
-    <ion-item>
-            
-            <ion-label>
-                <h2>{{selectedRegisterMark.student.firstForename}} {{selectedRegisterMark.student.surname}}</h2>
-    <p>Last Attended: {{selectedRegisterMark.student.lastAttended ? selectedRegisterMark.student.lastAttended : 'N/A'}}</p>
-     </ion-label>          
-    </ion-item>
-
-
-
-     <ion-list no-lines radio-group   >
+  <div  *ngIf="selectedRegisterSession.marks">
+    <ion-slides #ionSlides (change)="onSlideChanged($event)" pager loop="false" >
+        <ion-slide *ngFor="#regMark of selectedRegisterSession.marks" >
+                <img class="avatar center" [src]="regMark.student.thumbnail">
+                <h2>{{regMark.student.firstForename}} {{regMark.student.surname}}</h2>
+                <p>Last Attended: {{regMark.student.lastAttended ? regMark.student.lastAttended : 'N/A'}}</p>
+                <p>Current Mark: {{regMark.markTypeID}}</p>
+               
+        </ion-slide>
+    </ion-slides>    
+    
+    <ion-row center>
+        <ion-col >
+     <ion-list  no-lines radio-group [(ngModel)]="selectedRegisterMarkAsString" >
       <ion-item *ngFor="#mark of markTypes"  >
-          <ion-label  class="radioLabel">{{mark.mark}} 
+          <ion-label [ngClass]="{disabled: !mark.enabled || !mark.isAvailableWeb}" class="radioLabel text-center">{{mark.mark}}
               <br/> <div >{{mark.description}}</div>  
                    </ion-label>
-      <ion-radio (click)="clickmark($event,mark)"  value="{{mark.markTypeID}}">   </ion-radio> 
+      <ion-radio [ngClass]="{disabled: !mark.enabled || !mark.isAvailableWeb}" (click)="updateMark($event,mark,ionSlides)"  value="{{mark.markTypeID}}" >   </ion-radio> 
           </ion-item>
       </ion-list>
-
+      </ion-col>
+      </ion-row>
 
 </div>
 <div *ngIf="rules.length>0" padding>
     
    
-
+ <ion-row>
+     <ion-col width-50>
      <ion-list>
   <ion-list-header>
      <div class="button button-danger noclick">
@@ -119,6 +121,8 @@
         
     </ion-item>
     </ion-list>
+    </ion-col>
+  </ion-row>
  </div>
  
  <ion-row>

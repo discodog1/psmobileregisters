@@ -11,7 +11,7 @@ export class LoginModal {
     confirmedUrl: string;
     response: string;
     
-  constructor(public http: Http,viewCtrl: ViewController) {
+  constructor(private http: Http,viewCtrl: ViewController) {
       console.log('Task Service created.', http);
       
       this.viewCtrl = viewCtrl;

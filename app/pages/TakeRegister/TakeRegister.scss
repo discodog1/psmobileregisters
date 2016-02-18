@@ -21,9 +21,18 @@
 .center {
     display: flex;
     margin:auto;
+    
+}
+.text-center {
+    text-align: center;
 }
 ion-content {
     background-color:rgb(244, 244, 247)
+}
+
+.disabled {
+    pointer-events: none;
+    color:grey;
 }
 
 ion-card {

@@ -16,20 +16,16 @@ export class RegisterService implements OnInit {
     
     
     ngOnInit() {
-         this.jwt = localStorage.getItem('id_token');
+        
      
-      this.authHeader = new Headers();
+    
+    }
+  constructor(private http: Http) {
+        this.jwt = localStorage.getItem('id_token');
+        this.authHeader = new Headers();
         if(this.jwt) {
             this.authHeader.append('Authorization', 'Bearer ' + this.jwt);      
         }
-    }
-  constructor(private http: Http) {   
-     
-        
-        //stats
-        this.taken=0;
-        this.today=0;
-        this.missed=0;         
   }
   
 
@@ -145,6 +141,10 @@ loadDataSet(sess:RegisterSession) {
       
     
     getRegisterStats() {
+        
+        this.taken=0;
+        this.today=0;
+        this.missed=0; 
         
         let result:Array<Register> = [];
         

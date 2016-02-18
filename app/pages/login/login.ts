@@ -28,7 +28,7 @@ export class LoginPage implements OnInit {
     }
     
     
-  constructor( app: IonicApp, nav: NavController, navParams: NavParams,public http: Http) {
+  constructor( app: IonicApp, nav: NavController, navParams: NavParams,private http: Http) {
     this.nav = nav;
     this.app = app;
     this.serviceUrl = '';

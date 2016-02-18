@@ -85,18 +85,18 @@ class MyApp {
       
        //////////////////////////////////////////////////////////////////
        //push notification start
-       Ionic.io();
-        ionicPush = new Ionic.Push().init({
-            debug: true,
-            onNotification: (data) => {
-                console.log('New push notification received');
-                console.log(data);
-            }
-        });
+    //    Ionic.io();
+    //     ionicPush = new Ionic.Push().init({
+    //         debug: true,
+    //         onNotification: (data) => {
+    //             console.log('New push notification received');
+    //             console.log(data);
+    //         }
+    //     });
 
-        ionicPush.register(data => {
-            console.log("Device token:", data.token);
-        });
+    //     ionicPush.register(data => {
+    //         console.log("Device token:", data.token);
+    //     });
         //push notification end
         //////////////////////////////////////////////////////////////////
     

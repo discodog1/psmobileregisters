@@ -83,7 +83,9 @@ export class MarkType {
    constructor(
     public markTypeID: number,
     public mark: string,
-    public description: string
+    public description: string,
+    public enabled: boolean,
+    public isAvailableWeb: boolean
    ){}
 }
   
