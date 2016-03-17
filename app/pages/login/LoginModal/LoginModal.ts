@@ -1,4 +1,4 @@
-import { Page, ViewController} from 'ionic-framework/ionic'
+import { Page, ViewController} from 'ionic-angular'
 import {SystemSetting} from '../../../models/objects'
 import {Http,HTTP_PROVIDERS,Headers} from 'angular2/http'
 

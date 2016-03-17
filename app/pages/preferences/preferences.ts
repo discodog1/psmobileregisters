@@ -1,4 +1,4 @@
-import {Page} from 'ionic-framework/ionic';
+import {Page} from 'ionic-angular';
 
 import {tokenNotExpired} from 'angular2-jwt/angular2-jwt';
 import {SystemSetting} from '../../models/objects'

@@ -1,4 +1,4 @@
-import {IonicApp, Page, NavController, NavParams} from 'ionic-framework/ionic'
+import {IonicApp, Page, NavController, NavParams} from 'ionic-angular'
 import {RegisterList} from '../../pages/RegisterList/RegisterList'
 
 import {tokenNotExpired} from 'angular2-jwt/angular2-jwt'

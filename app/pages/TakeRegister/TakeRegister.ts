@@ -1,5 +1,5 @@
 /* global console */
-import {IonicApp,Page, NavController,Modal, NavParams,RadioButton} from 'ionic-framework/ionic'
+import {IonicApp,Page, NavController,Modal, NavParams,RadioButton} from 'ionic-angular'
 import {Register,RegisterStudent,RegisterMark,RegisterSession,MarkType,DataSet,BrokenRules} from '../../models/objects'
 import {RegisterService} from '../../services/RegisterService'
 import {HomePage} from '../../pages/home/home'

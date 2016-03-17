@@ -7,7 +7,7 @@
 </ion-navbar>
 
 <ion-content padding class="RegistersList" >
-    <ion-refresher (starting)="doStarting()"
+    <ion-refresher (start)="doStarting()"
                  (refresh)="refreshRegisters($event, refresher)"
                  (pulling)="doPulling($event, amt)">
   </ion-refresher>

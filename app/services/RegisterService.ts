@@ -5,7 +5,6 @@ import {Injectable } from 'angular2/core';
 import {Register,RegisterStudent, Staff,Room,RegisterMark,RegisterSession,DataSet,SystemSetting} from '../models/objects'
 import {OnInit} from 'angular2/core'
 
-
 @Injectable()
 export class RegisterService implements OnInit {
     jwt:string;
@@ -13,7 +12,6 @@ export class RegisterService implements OnInit {
     taken:number;
     today:number;
     missed:number;
-    
     
     ngOnInit() {
         

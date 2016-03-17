@@ -1,4 +1,4 @@
-import {IonicApp, Page, NavController, NavParams, Modal} from 'ionic-framework/ionic'
+import {IonicApp, Page, NavController, NavParams, Modal} from 'ionic-angular'
 import {HomePage} from '../home/home'
 import {JwtHelper} from 'angular2-jwt/angular2-jwt'
 import {Http, Headers} from 'angular2/http'

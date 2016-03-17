@@ -1,4 +1,4 @@
-import {IonicApp, Page, NavController, NavParams} from 'ionic-framework/ionic'
+import {IonicApp, Page, NavController, NavParams} from 'ionic-angular'
 import {Component,OnInit} from 'angular2/core';
 import {NgClass} from 'angular2/common';
 
@@ -7,7 +7,6 @@ import {RegisterService} from '../../services/RegisterService'
 import {Register,RegisterSession} from '../../models/objects'
 
 import {tokenNotExpired} from 'angular2-jwt/angular2-jwt';
-
 
 
 @Page({

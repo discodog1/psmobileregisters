@@ -1,4 +1,6 @@
-import {App, IonicApp, Platform, Config} from 'ionic-framework/ionic';
+///<reference path="../node_modules/angular2/typings/browser.d.ts"/>
+
+import {App, IonicApp, Platform, Config} from 'ionic-angular';
 import {HomePage} from './pages/home/home'
 import {LogOutPage} from './pages/logout/logout'
 import {SyncPage} from './pages/sync/sync'
